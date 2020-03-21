@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/feather.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
@@ -12,7 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var url = "http://localhost:9090";
+  // var url = "http://localhost:9090";
+  var url = "https://tourserver.herokuapp.com";
   var isHidePass = true;
   var _isLoading = true;
 
@@ -136,21 +136,28 @@ class _LoginScreenState extends State<LoginScreen> {
     var e = "phuc@gmail.com";
     var p = "phuc123A@";
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    Map data = {"email": e, 'password': p};
+    Map data = {
+      "email": e, 
+      'password': p
+      };
     print('data: $data');
 
     var res = await http.post(url + "/api/signin",
         headers: {'Content-Type': 'application/json'}, body: jsonEncode(data));
+
     var jsonRes = json.decode(res.body);
+
     print(res.body);
     if (jsonRes != null) {
       setState(() {
         _isLoading = false;
       });
       preferences.setString("token", jsonRes['token']);
+   
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => MainScreen()),
           (Route<dynamic> route) => false);
+          
     } else {
       setState(() {
         _isLoading = false;
