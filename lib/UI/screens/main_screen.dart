@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_icons/feather.dart';
+import 'package:flutter_travel_ui/UI/pages/home_page.dart';
+import 'package:flutter_travel_ui/UI/pages/profile_page.dart';
+import 'package:flutter_travel_ui/UI/pages/search_page.dart';
+import 'package:flutter_travel_ui/UI/screens/profile_screen.dart';
+import 'package:flutter_travel_ui/widgets/destination_carousel.dart';
+import 'package:flutter_travel_ui/widgets/hotel_carousel.dart';
+import 'package:flutter_travel_ui/widgets/search_field.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -8,49 +14,74 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  SharedPreferences sharedPreferences;
+  int _currentTab = 0;
+  List<Widget> pages;
+  Widget currentPage;
+  double iconSize = 20;
 
-  checkLoginStatus() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString('token') == null)
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-          (Route<dynamic> route) => false);
-  }
+  HomePage homePage;
+  ProfilePage profilePage;
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    checkLoginStatus();
+    homePage = new HomePage();
+    profilePage = new ProfilePage();
+    pages = [homePage, homePage, homePage, profilePage];
+    currentPage = homePage;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: Container(
-        
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top:90),
-                child: Text('Have been login'),
-              ),
-              FlatButton(
-                onPressed: () {
-                  sharedPreferences.clear();
-                  sharedPreferences.commit();
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => LoginScreen()),
-                      (Route<dynamic> route) => false);
-                },
-                color: Colors.red,
-                child: Text('Log out'),
-              )
-            ],
+      body: currentPage,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentTab,
+        onTap: (int value) {
+          setState(() {
+            _currentTab = value;
+            currentPage = pages[value];
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Feather.getIconData('home'),
+              size: 25.0,
+            ),
+            title: SizedBox.shrink(),
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Feather.getIconData('briefcase'),
+              size: 30.0,
+            ),
+            title: SizedBox.shrink(),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Feather.getIconData('heart'),
+              size: 30.0,
+            ),
+            title: SizedBox.shrink(),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Feather.getIconData('user'),
+              size: 25.0,
+            ),
+            title: SizedBox.shrink(),
+          )
+        ],
+      ),
+    );
+  }
+
+  _findText() {
+    return Text(
+      'What would you \nlike to find?',
+      style: TextStyle(
+        fontSize: 30.0,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
