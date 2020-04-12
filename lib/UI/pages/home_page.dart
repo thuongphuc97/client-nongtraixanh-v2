@@ -1,7 +1,7 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/UI/pages/search_page.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
-import 'package:flutter_travel_ui/widgets/hotel_carousel.dart';
 import 'package:flutter_travel_ui/widgets/search_field.dart';
 import 'package:flutter_travel_ui/widgets/list_tour.dart';
 
@@ -17,11 +17,14 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         padding: EdgeInsets.symmetric(vertical: 30.0),
         children: <Widget>[
-         _findWidget(),
+          _findWidget(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 20, 10 , 10),
+            child: _carousel()
+          ),
           SizedBox(height: 20.0),
           ListTour(title: 'Tour hot', tours: tours),
           SizedBox(height: 20.0),
-          HotelCarousel(),
         ],
       ),
     );
@@ -31,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 20,right: 120),
+          padding: const EdgeInsets.only(left: 20, right: 120),
           child: Text(
             'What would you \nlike to find?',
             style: TextStyle(
@@ -53,5 +56,22 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
+  }
+  _carousel(){
+    return Container(
+              height: 200,
+              child: Carousel( // cai carousel nay chi can quan tam them hinh vo cho no thoi
+                autoplayDuration: Duration(seconds: 10),
+                dotSize: 5,
+                dotPosition: DotPosition.bottomLeft,
+                borderRadius: true,
+                images: [
+                  NetworkImage(
+                      'https://www.tsttourist.com/vnt_upload/tour/01_2020/e7.jpg'),
+                  NetworkImage(
+                      'https://media.vietravel.net/Images/news/kich-cau-du-lich-thai-lan(0).jpg'),
+                ],
+              ),
+            );
   }
 }
