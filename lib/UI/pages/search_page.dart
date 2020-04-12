@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
         ),
-        body: searchList.isNotEmpty ? result() : _noSearch());
+        body: _noSearch());
   }
 
   result() {

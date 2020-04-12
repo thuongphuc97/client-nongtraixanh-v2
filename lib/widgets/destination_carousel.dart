@@ -26,9 +26,10 @@ class DestinationCarousel extends StatelessWidget {
                 child: Text(
                   'See All',
                   style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
+                    color: Colors.amber,
                     fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
+                    // fontWeight: FontWeight.w600,
                     letterSpacing: 1.0,
                   ),
                 ),
@@ -36,6 +37,7 @@ class DestinationCarousel extends StatelessWidget {
             ],
           ),
         ),
+        
         Container(
           height: 300.0,
           child: ListView.builder(

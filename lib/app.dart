@@ -19,10 +19,12 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFFD8ECF1),
         // no con rat la nhieu field can setting neu em muon skin no dep nhat co the
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
+        accentIconTheme: IconThemeData(color: Colors.blue),
+        iconTheme: IconThemeData(color: Colors.blue),
 
       ),
        darkTheme:
-          ThemeData(brightness: Brightness.dark, primarySwatch: Colors.orange),
+          ThemeData.dark(),
       home: MainScreen(),
       // DestinationScreen(destination: destination,),
     );
