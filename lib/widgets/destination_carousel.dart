@@ -17,7 +17,8 @@ class DestinationCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Top Destinations',
+                'Top Destinations', // o cho nay, o ben list tour, anh cho no la 1 cai bien co the truyen vao luon, linh hoat hon, neu de nhu vay thi moi cai muc thi e phai tao ra 1 file right?
+               //no lap di lap lai 
                 style: TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -57,7 +58,8 @@ class DestinationCarousel extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: Container(
+                child: 
+                Container( // this is item, i copy to another file ok de do di
                   margin: EdgeInsets.all(10.0),
                   width: 210.0,
                   child: Stack(

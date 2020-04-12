@@ -14,7 +14,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pages;
   Widget currentPage;
   double iconSize = 20;
- double activateIconSize = 30;
+ double activateIconSize = 40;
   HomePage homePage;
   NotificationsPage notiPage;
   ProfilePage profilePage;
