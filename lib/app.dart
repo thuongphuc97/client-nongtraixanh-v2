@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
-import 'package:flutter_travel_ui/models/destination_model.dart';
-import 'UI/screens/destination_screen.dart';
-import 'UI/screens/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/feather.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';

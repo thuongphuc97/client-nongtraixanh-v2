@@ -6,6 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class DestinationCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var backgroundColor = Colors.white;
+    if(MediaQuery.of(context).platformBrightness == Brightness.dark )
+      backgroundColor  = Colors.black;
     return Column(
       children: <Widget>[
         Padding(
@@ -66,7 +69,7 @@ class DestinationCarousel extends StatelessWidget {
                           height: 120.0,
                           width: 200.0,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: backgroundColor,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Padding(
