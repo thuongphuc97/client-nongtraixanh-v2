@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travel_ui/UI/pages/profile_page.dart';
 import 'package:flutter_travel_ui/UI/pages/search_page.dart';
 import 'package:flutter_travel_ui/widgets/destination_carousel.dart';
 import 'package:flutter_travel_ui/widgets/hotel_carousel.dart';

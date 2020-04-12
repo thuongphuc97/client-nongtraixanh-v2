@@ -14,7 +14,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pages;
   Widget currentPage;
   double iconSize = 20;
-
+ double activateIconSize = 30;
   HomePage homePage;
   NotificationsPage notiPage;
   ProfilePage profilePage;
@@ -48,50 +48,51 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Feather.getIconData('home'),
-              size: 25.0,
+              size: iconSize,
             ),
             title: Text('home'),
+                                    activeIcon: Icon(Icons.home, size: activateIconSize,)
+
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Feather.getIconData('briefcase'),
-              size: 25.0,
+              size: iconSize,
             ),
-            title: Text('Order'),
+            title: Text('order'),
+                        activeIcon: Icon(Icons.confirmation_number, size: activateIconSize,)
+
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Feather.getIconData('heart'),
-              size: 25.0,
+              size: iconSize,
             ),
-            title: Text('Favourite'),
+            title: Text('favourite'),
+                        activeIcon: Icon(Icons.favorite, size: activateIconSize,)
+
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Feather.getIconData('bell'),
-              size: 25.0,
+              size: iconSize,
             ),
-            title: Text('Noti'),
+            title: Text('notify'),
+                        activeIcon: Icon(Icons.notifications, size: activateIconSize,)
+
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Feather.getIconData('user'),
-              size: 25.0,
+              size: iconSize,
             ),
             title: Text('You'),
+            activeIcon: Icon(Icons.person, size: activateIconSize,)
           )
         ],
       ),
     );
   }
 
-  _findText() {
-    return Text(
-      'What would you \nlike to find?',
-      style: TextStyle(
-        fontSize: 30.0,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
+  
 }
