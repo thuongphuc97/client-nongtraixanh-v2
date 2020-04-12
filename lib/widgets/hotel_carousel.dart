@@ -24,7 +24,7 @@ class HotelCarousel extends StatelessWidget {
                 child: Text(
                   'See All',
                   style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.amber,
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.0,
@@ -37,7 +37,7 @@ class HotelCarousel extends StatelessWidget {
         Container(
           height: 300.0,
           child: ListView.builder(
-            scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.horizontal, 
             itemCount: hotels.length,
             itemBuilder: (BuildContext context, int index) {
               Hotel hotel = hotels[index];

@@ -15,14 +15,14 @@ class SearchField extends StatelessWidget{
           contentPadding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 14.0),
           suffixIcon: Material(
               elevation: 2.0,
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              borderRadius: BorderRadius.all(Radius.circular(30.0)), 
               child: Icon(
                 Icons.search,
                 color: Colors.black,
               )
           ),
           border:InputBorder.none,
-          hintText: "Search Foods"
+          hintText: "Search Tour"
         )
       ),
     );

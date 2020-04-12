@@ -18,14 +18,16 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(vertical: 30.0),
           children: <Widget>[
             Padding(
+              
               padding: EdgeInsets.only(left: 20.0, right: 120.0),
               child: GestureDetector(
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                  MaterialPageRoute(builder: (context) => SearchPage()),
                 ),
                 child: _findText(),
               ),
+
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: SearchField()),
             ),
-            SizedBox(height: 20.0),
+
             SizedBox(height: 20.0),
             DestinationCarousel(),
             SizedBox(height: 20.0),
