@@ -67,7 +67,7 @@ class HomeTourItem extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Hero(
-                  tag: tour.imagesUrl,
+                  tag: tour.imagesUrl, // nó cần tag khác nhau k trùng nhau, nếu cso cái trùng thì navigatỏ bị lỗi liền
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image(
