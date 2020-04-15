@@ -9,6 +9,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String avatar = "https://instagram.fsgn5-7.fna.fbcdn.net/v/t51.2885-19/s320x320/90411411_2860946900637855_8708635865879937024_n.jpg?_nc_ht=instagram.fsgn5-7.fna.fbcdn.net&_nc_ohc=2225Rw60pUYAX98Vmt2&oh=77eceebe26e0c26b14bb53a2e5e8240e&oe=5EBFA4A8";
   bool notificationOn = false;
   bool darkMode = true;
   @override
@@ -27,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
-                      child: Icon(Icons.ac_unit),
+                      child: Image.network(avatar),
                       radius: 45,
                     ),
                     Padding(
