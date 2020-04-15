@@ -3,6 +3,7 @@ import 'package:flutter_icons/feather.dart';
 import 'package:flutter_travel_ui/UI/pages/home_page.dart';
 import 'package:flutter_travel_ui/UI/pages/notifications_page.dart';
 import 'package:flutter_travel_ui/UI/pages/profile_page.dart';
+import 'package:flutter_travel_ui/UI/pages/ticket_page.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -14,10 +15,11 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pages;
   Widget currentPage;
   double iconSize = 20;
- double activateIconSize = 35;
+  double activateIconSize = 35;
   HomePage homePage;
   NotificationsPage notiPage;
   ProfilePage profilePage;
+  TicketPage ticketPage;
 
   @override
   void initState() {
@@ -25,7 +27,8 @@ class _MainScreenState extends State<MainScreen> {
     homePage = new HomePage();
     profilePage = new ProfilePage();
     notiPage = new NotificationsPage();
-    pages = [homePage, homePage, homePage, notiPage, profilePage];
+    ticketPage = new TicketPage();
+    pages = [homePage, ticketPage, notiPage, profilePage];
     currentPage = homePage;
   }
 
@@ -63,15 +66,15 @@ class _MainScreenState extends State<MainScreen> {
                         activeIcon: Icon(Icons.confirmation_number, size: activateIconSize,)
 
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Feather.getIconData('heart'),
-              size: iconSize,
-            ),
-            title: Text('favourite'),
-                        activeIcon: Icon(Icons.favorite, size: activateIconSize,)
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Feather.getIconData('heart'),
+          //     size: iconSize,
+          //   ),
+          //   title: Text('favourite'),
+          //               activeIcon: Icon(Icons.favorite, size: activateIconSize,)
 
-          ),
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
               Feather.getIconData('bell'),
