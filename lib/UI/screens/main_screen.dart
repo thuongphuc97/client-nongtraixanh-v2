@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/feather.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_travel_ui/UI/pages/home_page.dart';
 import 'package:flutter_travel_ui/UI/pages/notifications_page.dart';
 import 'package:flutter_travel_ui/UI/pages/profile_page.dart';
@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Feather.getIconData('home'),
+              Feather.home,
               size: iconSize,
             ),
             title: Text('home'),
@@ -59,10 +59,10 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Feather.getIconData('briefcase'),
+              Feather.briefcase,
               size: iconSize,
             ),
-            title: Text('order'),
+            title: Text('ticket'),
                         activeIcon: Icon(Icons.confirmation_number, size: activateIconSize,)
 
           ),
@@ -77,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
           // ),
           BottomNavigationBarItem(
             icon: Icon(
-              Feather.getIconData('bell'),
+              Feather.bell,
               size: iconSize,
             ),
             title: Text('notify'),
@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Feather.getIconData('user'),
+              Feather.user,
               size: iconSize,
             ),
             title: Text('You'),

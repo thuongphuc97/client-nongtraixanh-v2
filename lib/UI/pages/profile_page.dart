@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/feather.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -60,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Column(children: <Widget>[
                       ListTile(
-                        leading: Icon(Icons.location_on),
+                        leading: Icon(Feather.map_pin),
                         title: Text("Location"),
                       ),
                       Divider(
@@ -69,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         indent: 10.0,
                       ),
                       ListTile(
-                        leading: Icon(Icons.payment),
+                        leading: Icon(Feather.credit_card),
                         title: Text("Payment"),
                       ),
                       Divider(
@@ -78,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         indent: 10.0,
                       ),
                       ListTile(
-                        leading: Icon(Icons.lock),
+                        leading: Icon(Feather.lock),
                         title: Text("Change Password"),
                       ),
                     ]),
@@ -100,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Column(children: <Widget>[
                       ListTile(
-                        leading: Icon(Icons.notifications),
+                        leading: Icon(Feather.bell),
                         title: Text("Notification"),
                         trailing: CupertinoSwitch(
                             value: notificationOn,
@@ -113,8 +114,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Divider(),
                       ListTile(
                         leading: darkMode == true
-                            ? Icon(Feather.getIconData('moon'))
-                            : Icon(Feather.getIconData('sun')),
+                            ? Icon(Feather.moon)
+                            : Icon(Feather.sun),
                         title: Text("Dark mode"),
                         trailing: CupertinoSwitch(
                             value: darkMode,
@@ -141,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Column(children: <Widget>[
                       ListTile(
-                        leading: Icon(Icons.book),
+                        leading: Icon(Feather.help_circle),
                         title: Text("Help Center"),
                       ),
                       Divider(
@@ -150,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         indent: 10.0,
                       ),
                       ListTile(
-                        leading: Icon(Icons.settings),
+                        leading: Icon(Feather.settings),
                         title: Text("Setting"),
                       ),
                     ]),

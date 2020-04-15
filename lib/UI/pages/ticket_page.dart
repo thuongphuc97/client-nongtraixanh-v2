@@ -9,7 +9,7 @@ class _TicketPageState extends State<TicketPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Notifications'),),
+      appBar: AppBar(title: Text('Ticket'),),
       body: Center(child: Text('Nothing to show')),
     );
   }

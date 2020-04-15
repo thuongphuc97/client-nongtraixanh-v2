@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(fontSize: 18, color: Colors.white),
                     decoration: InputDecoration(
                         prefixIcon: Icon(
-                          Feather.getIconData('mail'),
+                          Feather.mail,
                           size: 20,
                         ),
                         labelText: "Email",
@@ -73,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: InputDecoration(
                         labelText: "Số Điện Thoại",
                         prefixIcon:
-                            Icon(Feather.getIconData('phone'), size: 20),
+                            Icon(Feather.phone, size: 20),
                         border: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.white, width: 1),
@@ -89,13 +89,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     obscureText: isHidePass,
                     decoration: InputDecoration(
                         labelText: "Mật Khẩu",
-                        prefixIcon: Icon(Feather.getIconData('lock'), size: 20),
+                        prefixIcon: Icon(Feather.lock, size: 20),
                         suffixIcon: InkWell(
                           child: isHidePass
-                              ? Icon(Feather.getIconData('eye'),
+                              ? Icon(Feather.eye,
                                   color: Colors.grey)
                               : Icon(
-                                  Feather.getIconData('eye'),
+                                  Feather.eye,
                                 ),
                           onTap: () {
                             setState(() {
@@ -117,13 +117,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     obscureText: isHidePass,
                     decoration: InputDecoration(
                         labelText: "Nhập Lại Mật Khẩu",
-                        prefixIcon: Icon(Feather.getIconData('lock'), size: 20),
+                        prefixIcon: Icon(Feather.lock, size: 20),
                         suffixIcon: InkWell(
                           child: isHidePass
-                              ? Icon(Feather.getIconData('eye'),
+                              ? Icon(Feather.eye,
                                   color: Colors.grey)
                               : Icon(
-                                  Feather.getIconData('eye'),
+                                  Feather.eye,
                                 ),
                           onTap: () {
                             setState(() {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/feather.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
 import 'package:flutter_travel_ui/UI/screens/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 18, color: Colors.white),
                       decoration: InputDecoration(
                           prefixIcon: Icon(
-                            Feather.getIconData('mail'),
+                            Feather.mail,
                             size: 20,
                           ),
                           labelText: "Username",
@@ -68,13 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                           labelText: "Mật Khẩu",
                           prefixIcon:
-                              Icon(Feather.getIconData('lock'), size: 20),
+                              Icon(Feather.lock, size: 20),
                           suffixIcon: InkWell(
                             child: isHidePass
-                                ? Icon(Feather.getIconData('eye'),
+                                ? Icon(Feather.eye,
                                     color: Colors.grey)
                                 : Icon(
-                                    Feather.getIconData('eye'),
+                                    Feather.eye,
                                   ),
                             onTap: () {
                               setState(() {

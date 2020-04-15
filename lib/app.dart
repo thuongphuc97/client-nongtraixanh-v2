@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
         accentIconTheme: IconThemeData(color: Colors.blue),
         iconTheme: IconThemeData(color: Colors.blue),
+     
 
       ),
        darkTheme:
