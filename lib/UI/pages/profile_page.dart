@@ -25,32 +25,34 @@ class _ProfilePageState extends State<ProfilePage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    CircleAvatar(
-                      child: Image.network(avatar),
-                      radius: 45,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 10, 20, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Dinh Hoang Nhung',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          Text('012344'),
-                          OutlineButton(
-                            highlightedBorderColor: Colors.blue,
-                            onPressed: () {},
-                            child: Text('Edit'),
-                          )
-                        ],
+                child: Center(
+                  child: Row(
+                    children: <Widget>[
+                      CircleAvatar(
+                        backgroundImage:NetworkImage(avatar),
+                        radius: 45,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 10, 20, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Dinh Hoang Nhung',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            Text('012344'),
+                            OutlineButton(
+                              highlightedBorderColor: Colors.blue,
+                              onPressed: () {},
+                              child: Text('Edit'),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
