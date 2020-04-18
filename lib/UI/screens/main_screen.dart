@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Feather.home,
+              Feather.home, // icon giờ viết kiểu chấm như vầy luôn chứ k phải như hôm trước là Feather.getIcon('ten icon nữa)
               size: iconSize,
             ),
             title: Text('home'),

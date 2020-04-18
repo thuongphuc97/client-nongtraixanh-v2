@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travel_ui/widgets/ticket_widget.dart';
 
 class TicketPage extends StatefulWidget {
   @override
@@ -6,11 +7,20 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
+  double _width = 350;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Ticket'),),
-      body: Center(child: Text('Nothing to show')),
-    );
+        appBar: AppBar(
+          title: Text('Ticket'),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              TicketItem(),
+              TicketItem(),
+            ],
+          ),
+        ));
   }
 }
