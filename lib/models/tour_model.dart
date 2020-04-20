@@ -6,19 +6,26 @@ class Tour {
   final String imagesUrl;
   final String desc;
   final String city;
-   final String country;
-     List<Activity> activities;
-  Tour({ this.id, this.title,this.imagesUrl,this.desc,this.city,this.country,this.activities});
+  final String country;
+  int price;
+  List<Activity> activities;
+  Tour(
+      {this.id,
+      this.title,
+      this.imagesUrl,
+      this.desc,
+      this.city,
+      this.country,
+      this.activities,this.price});
 
   factory Tour.fromJson(Map<String, dynamic> json) {
     return Tour(
       id: json['id'],
       title: json['title'],
-      imagesUrl:json['imagesUrl'],
+      imagesUrl: json['imagesUrl'],
     );
   }
 }
-
 
 List<Activity> activities = [
   Activity(
@@ -47,10 +54,9 @@ List<Activity> activities = [
   ),
 ];
 
-
 List<Tour> toursNearYou = [
   Tour(
-    id:1,
+    id: 1,
     title: "tour 1",
     imagesUrl: 'assets/images/venice.jpg',
     city: 'HCM',
@@ -94,7 +100,7 @@ List<Tour> toursNearYou = [
 //mot xoa may nay di ha, yes
 List<Tour> tours = [
   Tour(
-    id:1,
+    id: 1,
     title: "tour 1",
     imagesUrl: 'assets/images/venice.jpg',
     city: 'Venice',
@@ -104,10 +110,11 @@ List<Tour> tours = [
   ),
   Tour(
     id: 2,
-    title: "tour 2",
+    title: "Tour đi 59-Chợ Lớn",
     imagesUrl: 'assets/images/paris.jpg',
     city: 'Paris',
     country: 'France',
+    price: 350,
     desc: 'Visit Paris for an amazing and unforgettable adventure.',
     activities: activities,
   ),

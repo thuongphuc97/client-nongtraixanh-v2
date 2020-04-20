@@ -9,7 +9,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Notifications'),),
+      appBar: AppBar(title: Text('Notifications'),centerTitle: true),
       body: Center(child: Text('Nothing to show')),
     );
   }
