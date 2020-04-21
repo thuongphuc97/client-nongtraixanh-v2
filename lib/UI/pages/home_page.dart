@@ -1,7 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/UI/pages/search_page.dart';
-import 'package:flutter_travel_ui/models/tour_model.dart';
+import 'package:flutter_travel_ui/models/temp_data.dart';
 import 'package:flutter_travel_ui/widgets/search_field.dart';
 import 'package:flutter_travel_ui/widgets/list_tour.dart';
 

@@ -1,3 +1,4 @@
+import 'temp_data.dart';
 import 'tour_model.dart';
 
 class OrderItem {
@@ -9,4 +10,3 @@ class OrderItem {
 }
 
 
-OrderItem item = OrderItem(1, 1, tours[1]);

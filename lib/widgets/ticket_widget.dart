@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/models/order_item.dart';
+import 'package:flutter_travel_ui/models/temp_data.dart';
 import 'package:fw_ticket/fw_ticket.dart';
 
 class TicketItem extends StatefulWidget {
