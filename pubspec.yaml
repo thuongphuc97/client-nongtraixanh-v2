@@ -29,10 +29,12 @@ dependencies:
   carousel_pro: ^1.0.0
   http: any
   fw_ticket: any
-
+  json_annotation: ^3.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.10.0
+  json_serializable: ^3.3.0
 
 
 # For information on the generic Dart part of this file, see the

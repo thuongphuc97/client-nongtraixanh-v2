@@ -17,8 +17,9 @@ class _TicketPageState extends State<TicketPage> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              TicketItem(item: item,),
-              TicketItem(),
+              //!TODO clear //
+         //     TicketItem(item: item,),
+        //      TicketItem(),
             ],
           ),
         ),

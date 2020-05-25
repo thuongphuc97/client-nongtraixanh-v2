@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_travel_ui/UI/pages/home_page.dart';
 import 'package:flutter_travel_ui/UI/pages/notifications_page.dart';
 import 'package:flutter_travel_ui/UI/pages/profile_page.dart';
+import 'package:flutter_travel_ui/UI/pages/testpage.dart';
 import 'package:flutter_travel_ui/UI/pages/ticket_page.dart';
 
 class MainScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   NotificationsPage notiPage;
   ProfilePage profilePage;
   TicketPage ticketPage;
+  GetChuckCategories getChuckCategories;
 
   @override
   void initState() {
@@ -28,6 +30,7 @@ class _MainScreenState extends State<MainScreen> {
     profilePage = new ProfilePage();
     notiPage = new NotificationsPage();
     ticketPage = new TicketPage();
+    getChuckCategories = new GetChuckCategories();
     pages = [homePage, ticketPage, notiPage, profilePage];
     currentPage = homePage;
   }

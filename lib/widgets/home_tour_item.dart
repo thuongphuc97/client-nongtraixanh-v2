@@ -34,15 +34,15 @@ class HomeTourItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${tour.activities.length} activities', // lấy các giá trị từ đối tượng để show leen
+                      '${tour.title}', // lấy các giá trị từ đối tượng để show leen
                       style: TextStyle(
-                        fontSize: 22.0,
+                        fontSize: 18.0,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1.2,
                       ),
                     ),
                     Text(
-                      tour.desc,
+                      tour.descriptions,
                       style: TextStyle(
                         color: Colors.grey,
                       ),
@@ -67,13 +67,13 @@ class HomeTourItem extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Hero(
-                  tag: tour.imagesUrl, // nó cần tag khác nhau k trùng nhau, nếu cso cái trùng thì navigatỏ bị lỗi liền
+                  tag: tour.imageUrl, // nó cần tag khác nhau k trùng nhau, nếu cso cái trùng thì navigatỏ bị lỗi liền
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image(
                       height: 180.0,
                       width: 180.0,
-                      image: AssetImage(tour.imagesUrl),
+                      image: AssetImage(tour.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -85,29 +85,13 @@ class HomeTourItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        tour.city,
+                        tour.title,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24.0,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.2,
                         ),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.locationArrow,
-                            size: 10.0,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 5.0),
-                          Text(
-                            tour.country,
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),

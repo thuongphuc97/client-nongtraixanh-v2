@@ -8,5 +8,3 @@ class OrderItem {
   OrderItem(this.id, this.quantity, this.tour);
 }
 
-
-OrderItem item = OrderItem(1, 1, tours[1]);
