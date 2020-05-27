@@ -9,4 +9,3 @@ class OrderItem {
   OrderItem(this.id, this.quantity, this.tour);
 }
 
-
