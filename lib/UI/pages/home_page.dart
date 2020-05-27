@@ -1,7 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/UI/pages/search_page.dart';
-import 'package:flutter_travel_ui/models/temp_data.dart';
 import 'package:flutter_travel_ui/widgets/search_field.dart';
 import 'package:flutter_travel_ui/widgets/list_tour.dart';
 
@@ -23,7 +22,7 @@ class _HomePageState extends State<HomePage> {
             child: _carousel()
           ),
           SizedBox(height: 20.0),
-          ListTour(title: 'Tour hot', tours: tours),
+    //      ListTour(title: 'Tour hot', tours: tours),
           SizedBox(height: 20.0),
         ],
       ),

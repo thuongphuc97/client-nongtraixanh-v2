@@ -5,33 +5,49 @@ import '../models/tour_model.dart';
 import '../repository/tour_repository.dart';
 
 class TourBloc {
-  TourRepository _chuckRepository;
-  StreamController _chuckDataController;
+  TourRepository _tourRepository;
+  StreamController _tourDataController;
+  StreamController _tourListController;
 
-  StreamSink<Response<Tour>> get chuckDataSink =>
-      _chuckDataController.sink;
-
-  Stream<Response<Tour>> get chuckDataStream =>
-      _chuckDataController.stream;
-
-  TourBloc(String id) {
-    _chuckDataController = StreamController<Response<Tour>>();
-    _chuckRepository = TourRepository();
-    fetchChuckyJoke(id);
+/* ------------------------------- Single Tour ------------------------------ */
+  StreamSink<Response<Tour>> get tourDataSink => _tourDataController.sink;
+  Stream<Response<Tour>> get tourDataStream => _tourDataController.stream;
+/* -------------------------------- List Tour ------------------------------- */
+  StreamSink<Response<List<Tour>>> get tourListSink => _tourListController.sink;
+  Stream<Response<List<Tour>>> get tourListStream => _tourListController.stream;
+/* ------------------------------- Constructor ------------------------------ */
+  TourBloc() {
+    _tourDataController = StreamController<Response<Tour>>();
+    _tourListController = StreamController<Response<List<Tour>>>();
+    _tourRepository = TourRepository();
   }
-
-  fetchChuckyJoke(String id) async {
-    chuckDataSink.add(Response.loading('Getting A Chucky Joke!'));
+/* ---------------------------- Fetch Tour by Id ---------------------------- */
+  fetchTourById(String id) async {
+    tourDataSink.add(Response.loading('Loading tour data!'));
     try {
-      Tour chuckJoke = await _chuckRepository.fetchTourById(id);
-      chuckDataSink.add(Response.completed(chuckJoke));
+      Tour tour = await _tourRepository.fetchTourById(id);
+      tourDataSink.add(Response.completed(tour));
     } catch (e) {
-      chuckDataSink.add(Response.error(e.toString()));
+      tourDataSink.add(Response.error(e.toString()));
       print(e);
     }
   }
 
+/* ----------------------------- Fetch List Tour ---------------------------- */
+  fetchTourList() async {
+    tourListSink.add(Response.loading('Loading tour list!'));
+    try {
+      List<Tour> tourList = await _tourRepository.fetchTourListData();
+      tourListSink.add(Response.completed(tourList));
+    } catch (e) {
+      tourListSink.add(Response.error(e.toString()));
+      print(e);
+    }
+  }
+/* -------------------------------------------------------------------------- */
+
   dispose() {
-    _chuckDataController?.close();
+    _tourDataController?.close();
+    _tourListController?.close();
   }
 }

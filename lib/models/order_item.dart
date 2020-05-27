@@ -1,4 +1,3 @@
-import 'temp_data.dart';
 import 'tour_model.dart';
 
 class OrderItem {

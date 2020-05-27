@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_travel_ui/models/temp_data.dart';
 import 'package:flutter_travel_ui/widgets/ticket_widget.dart';
 
 class TicketPage extends StatefulWidget {

@@ -15,11 +15,11 @@ Tour _$TourFromJson(Map<String, dynamic> json) {
     vehicle: json['vehicle'] as String,
     day: json['day'] as int,
     night: json['night'] as int,
-    adultPrice: json['adultPrice'] as int,
-    childPrice: json['childPrice'] as int,
-    mapLocation: json['mapLocation'] as String,
-    createdAt: json['createdAt'] as String,
-    updatedAt: json['updatedAt'] as String,
+    adultPrice: json['adult_price'] as int,
+    childPrice: json['child_price'] as int,
+    mapLocation: json['map_location'] as String,
+    createdAt: json['created_at'] as String,
+    updatedAt: json['updated_at'] as String,
   );
 }
 
