@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travel_ui/UI/screens/tour_detail_screen.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
 import 'package:flutter_travel_ui/widgets/home_tour_item.dart';
 
-
-class ListTour extends StatelessWidget { //tai sao cjp nauy la less
+class ListTour extends StatelessWidget {
+  //tai sao cjp nauy la less
   final String title;
   final List<Tour> tours;
-  const ListTour({Key key, this.title,this.tours}) : super(key: key);
+  const ListTour({Key key, this.title, this.tours}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,25 +41,24 @@ class ListTour extends StatelessWidget { //tai sao cjp nauy la less
             ],
           ),
         ),
-        
         Container(
           height: 300.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: tours.length,
             itemBuilder: (BuildContext context, int index) {
-              Tour tour = tours[index]; 
+              Tour tour = tours[index];
               return GestureDetector(
-                // onTap: () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (_) => DestinationScreen(
-                //       destination: tour,
-                //     ),
-                //   ),
-                // ),
-                child: HomeTourItem(tour:tour), 
-                     );
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => TourDetailScreen(
+                      tourId: tour.id,
+                    ),
+                  ),
+                ),
+                child: HomeTourItem(tour: tour),
+              );
             },
           ),
         ),

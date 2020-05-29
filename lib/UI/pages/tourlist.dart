@@ -4,6 +4,8 @@ import 'package:flutter_travel_ui/models/tour_model.dart';
 import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
 import 'package:flutter_travel_ui/networking/response.dart';
 
+import 'testpage.dart';
+
 class GetTourList extends StatefulWidget {
   @override
   _GetChuckyState createState() => _GetChuckyState();
@@ -42,7 +44,7 @@ class _GetChuckyState extends State<GetTourList> {
                   return Loading(loadingMessage: snapshot.data.message);
                   break;
                 case Status.COMPLETED:
-                print('completed');
+                  print('completed');
                   return TourList(tourList: snapshot.data.data);
                   break;
                 case Status.ERROR:
@@ -67,7 +69,6 @@ class _GetChuckyState extends State<GetTourList> {
   }
 }
 
-
 class TourList extends StatelessWidget {
   final List<Tour> tourList;
 
@@ -86,20 +87,21 @@ class TourList extends StatelessWidget {
               ),
               child: SizedBox(
                 height: 65,
-                child: Container(
-                  color: Color(0xFF333333),
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                    child: Text(
-                      tourList[index].title,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w100,
-                          fontFamily: 'Roboto'),
-                      textAlign: TextAlign.left,
-                    ),
+                child: InkWell(
+                  onTap: () {
+                    print("ID:${tourList[index].id}");
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => GetChuckCategories(
+                              tourId: tourList[index].id
+                            )));
+                            
+                  },
+                  child: Container(
+                    color: Color(0xFF333333),
+                    alignment: Alignment.center,
+                    child: Padding(
+                        padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                        child:  Text(tourList[index].title)),
                   ),
                 ),
               ));

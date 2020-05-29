@@ -66,16 +66,13 @@ class HomeTourItem extends StatelessWidget {
             ),
             child: Stack(
               children: <Widget>[
-                Hero(
-                  tag: tour.imageUrl, // nó cần tag khác nhau k trùng nhau, nếu cso cái trùng thì navigatỏ bị lỗi liền
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image(
-                      height: 180.0,
-                      width: 180.0,
-                      image: AssetImage(tour.imageUrl),
-                      fit: BoxFit.cover,
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image(
+                    height: 180.0,
+                    width: 180.0,
+                    image: NetworkImage(tour.imageUrl),
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(

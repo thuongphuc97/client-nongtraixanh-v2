@@ -14,3 +14,4 @@ class Response<T> {
 }
 
 enum Status { LOADING, COMPLETED, ERROR }
+

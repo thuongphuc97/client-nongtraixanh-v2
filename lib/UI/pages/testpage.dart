@@ -4,6 +4,9 @@ import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
 import 'package:flutter_travel_ui/networking/response.dart';
 
 class GetChuckCategories extends StatefulWidget {
+  final String tourId;
+
+  const GetChuckCategories({Key key, this.tourId}) : super(key: key);
   @override
   _GetChuckyState createState() => _GetChuckyState();
 }
@@ -15,7 +18,7 @@ class _GetChuckyState extends State<GetChuckCategories> {
   void initState() {
     super.initState();
     _bloc = TourBloc();
-    _bloc.fetchTourById('5ecc07ffb57dca36c432d135');
+    _bloc.fetchTourById(widget.tourId);
   }
 
   @override
@@ -30,7 +33,7 @@ class _GetChuckyState extends State<GetChuckCategories> {
       ),
       backgroundColor: Color(0xFF333333),
       body: RefreshIndicator(
-        onRefresh: () => _bloc.fetchTourById('5ecc07ffb57dca36c432d135'),
+        onRefresh: () => _bloc.fetchTourById(widget.tourId),
         child: StreamBuilder<Response<Tour>>(
           stream: _bloc.tourDataStream,
           builder: (context, snapshot) {
@@ -46,7 +49,7 @@ class _GetChuckyState extends State<GetChuckCategories> {
                   return Error(
                     errorMessage: snapshot.data.message,
                     onRetryPressed: () =>
-                        _bloc.fetchTourById('5ecc07ffb57dca36c432d135'),
+                        _bloc.fetchTourById(widget.tourId),
                   );
                   break;
               }
