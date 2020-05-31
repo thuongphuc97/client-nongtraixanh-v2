@@ -15,4 +15,8 @@ class TourRepository {
     final response = await _provider.get("api/tours/");
     return (response as List).map((data) => new Tour.fromJson(data)).toList();
   }
+  Future<List<Tour>> fetchTourSearchData(String title) async {
+    final response = await _provider.get("api/tours/search/"+ title);
+    return (response as List).map((data) => new Tour.fromJson(data)).toList();
+  }
 }

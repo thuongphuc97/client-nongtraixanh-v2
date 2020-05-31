@@ -33,6 +33,18 @@ class TourBloc {
     }
   }
 
+/* ----------------------------- SEARCH BY TITLE ---------------------------- */
+  fetchTourBySearch(String title) async {
+    tourListSink.add(Response.loading('Searching'));
+    try {
+      List<Tour> tourList = await _tourRepository.fetchTourSearchData(title);
+      tourListSink.add(Response.completed(tourList));
+    } catch (e) {
+      tourListSink.add(Response.error(e.toString()));
+      print(e);
+    }
+  }
+
 /* ----------------------------- Fetch List Tour ---------------------------- */
   fetchTourList() async {
     tourListSink.add(Response.loading('Loading tour list!'));
