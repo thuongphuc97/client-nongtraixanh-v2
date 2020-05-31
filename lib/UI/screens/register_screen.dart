@@ -10,7 +10,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // var url = "http://localhost:9090";
   var url = "https://tourserver.herokuapp.com";
   var isHidePass = true;
-  var _isLoading = true;
 
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passController = new TextEditingController();

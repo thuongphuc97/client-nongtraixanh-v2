@@ -1,7 +1,6 @@
 import '../networking/api_provider.dart';
 import '../models/tour_model.dart';
 import 'dart:async';
-import 'dart:convert';
 
 class TourRepository {
   ApiProvider _provider = ApiProvider();
