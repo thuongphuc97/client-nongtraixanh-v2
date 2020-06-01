@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_travel_ui/UI/pages/tourlist.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,7 +10,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Travel UI',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xFF3EBACE),
         accentColor: Color(0xFFD8ECF1),

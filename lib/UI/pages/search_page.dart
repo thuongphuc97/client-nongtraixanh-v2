@@ -104,18 +104,18 @@ class _SearchPageState extends State<SearchPage> {
   _noSearch() {
     return Center(
       child: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 100),
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                'assets/images/search-image.png',
-                height: 400,
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Column(
+      children: <Widget>[
+        Image.asset(
+          'assets/images/search-image.png',
+          height: 400,
+        ),
+      ],
+            ),
           ),
         ),
-      ),
     );
   }
 }
