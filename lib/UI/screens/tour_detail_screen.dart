@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
-import 'package:flutter_travel_ui/models/activity_model.dart';
-import 'package:flutter_travel_ui/models/destination_model.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
 import 'package:flutter_travel_ui/networking/response.dart';
 import 'package:flutter_travel_ui/widgets/response_widget.dart';

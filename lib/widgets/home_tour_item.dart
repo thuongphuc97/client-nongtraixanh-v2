@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeTourItem extends StatelessWidget {
   final Tour tour;
