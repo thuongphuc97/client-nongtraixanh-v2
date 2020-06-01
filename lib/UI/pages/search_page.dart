@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/UI/pages/tourlist.dart';
-import 'dart:convert' show utf8;
 
 import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
