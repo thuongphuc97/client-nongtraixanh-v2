@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       ),
        darkTheme:
           ThemeData.dark(),
-      home: MainScreen()
+      // home: MainScreen()
+      home: LoginScreen(),
       // DestinationScreen(destination: destination,),
     );
   }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
 import 'package:flutter_travel_ui/UI/screens/register_screen.dart';
+import 'package:flutter_travel_ui/models/auth_model.dart';
+import 'package:flutter_travel_ui/repository/authenticate_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -158,31 +160,38 @@ class _LoginScreenState extends State<LoginScreen> {
 
   signIn(String email, pass) async {
     var e = "phuc@gmail.com";
-    var p = "phuc123A@";
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    Map data = {"email": e, 'password': p};
-    print('data: $data');
+    var p = "phuc123Aa";
 
-    var res = await http.post(url + "/api/signin",
-        headers: {'Content-Type': 'application/json'}, body: jsonEncode(data));
-
-    var jsonRes = json.decode(res.body);
-
-    print(res.body);
-    if (jsonRes != null) {
-      setState(() {
-        _isLoading = false;
-      });
-      preferences.setString("token", jsonRes['token']);
-
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => MainScreen()),
-          (Route<dynamic> route) => false);
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-      print(res.body);
+    AuthenticateRepository authenticateRepository = AuthenticateRepository();
+    try {
+    Auth auth = await  authenticateRepository.signIn(e, p);
+    print(auth.token);
+    } catch (e) {
+      print(e);
     }
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // Map data = {"email": e, 'password': p};
+    // print('data: $data');
+
+    // var res = await http.post(url + "/api/signin",
+    //     headers: {'Content-Type': 'application/json'}, body: jsonEncode(data));
+
+    // var jsonRes = json.decode(res.body);
+    // print(res.body);
+    // if (jsonRes != null) {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    //   preferences.setString("token", jsonRes['token']);
+
+    //   Navigator.of(context).pushAndRemoveUntil(
+    //       MaterialPageRoute(builder: (BuildContext context) => MainScreen()),
+    //       (Route<dynamic> route) => false);
+    // } else {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    //   print(res.body);
+    // }
   }
 }
