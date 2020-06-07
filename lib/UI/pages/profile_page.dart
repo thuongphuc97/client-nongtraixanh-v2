@@ -221,7 +221,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     text: "Đăng xuất",
                     onTap: () {
                       context.bloc<AuthBloc>().add(AuthLoggedOut());
-                      
                     }),
               ),
             ),
@@ -250,9 +249,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         text: 'Đăng nhập / Đăng ký'.toUpperCase(),
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()),
+                          );
                         },
                       ),
                     ),

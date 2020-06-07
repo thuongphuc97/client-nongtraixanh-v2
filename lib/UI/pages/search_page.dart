@@ -13,7 +13,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController _searchController = TextEditingController();
-  bool hasSearch = false; 
+  bool hasSearch = false;
   TourBloc _bloc;
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
       body: StreamBuilder<Response<List<Tour>>>(
         stream: _bloc.tourListStream,
         builder: (context, snapshot) {
-          if (!hasSearch)   //!Neu khong co du liệu ở khung search thì chuyển đến giao diện no search
+          if (!hasSearch) //!Neu khong co du liệu ở khung search thì chuyển đến giao diện no search
             return _noSearch();
           if (snapshot.hasData) {
             switch (snapshot.data.status) {
@@ -69,9 +69,11 @@ class _SearchPageState extends State<SearchPage> {
                 break;
               case Status.COMPLETED:
                 print('complete');
-                if(snapshot.data.data.isNotEmpty) //!Kiểm tra có dữ liệu thì chuyển đến Líst search
-                return TourList(tourList: snapshot.data.data);
-               else return _noResult(); //! Không có thì báo không có thís function below
+                if (snapshot.data.data
+                    .isNotEmpty) //!Kiểm tra có dữ liệu thì chuyển đến Líst search
+                  return TourList(tourList: snapshot.data.data);
+                else
+                  return _noResult(); //! Không có thì báo không có thís function below
                 break;
               case Status.ERROR:
                 return Error(
@@ -86,35 +88,27 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
+
   _noResult() {
     return Center(
       child: Container(
         child: Padding(
           padding: const EdgeInsets.only(top: 100),
           child: Column(
-            children: <Widget>[
-           Text('Not found!')
-            ],
+            children: <Widget>[Text('Not found!')],
           ),
         ),
       ),
     );
   }
+
   _noSearch() {
-    return Center(
-      child: Container(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: Column(
-      children: <Widget>[
-        Image.asset(
-          'assets/images/search-image.png',
-          height: 400,
-        ),
-      ],
-            ),
-          ),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+        'assets/images/search-image.png',
+      ))),
     );
   }
 }

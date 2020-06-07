@@ -10,8 +10,6 @@ import 'package:flutter_travel_ui/UI/pages/ticket_page.dart';
 import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
 import 'package:flutter_travel_ui/models/auth_model.dart';
 
-import 'dart:convert';
-
 import 'package:flutter_travel_ui/repository/auth_repository.dart';
 
 class MainScreen extends StatefulWidget {
@@ -30,6 +28,8 @@ class _MainScreenState extends State<MainScreen> {
   ProfilePage profilePage;
   TicketPage ticketPage;
   GetChuckCategories getChuckCategories;
+
+/* ------------------------- GET TOKEN FROM STORAGE ------------------------- */
   getAuth() async {
     final _storage = FlutterSecureStorage();
     String token = await _storage.read(key: "token");
