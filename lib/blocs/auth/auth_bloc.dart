@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   AuthState get initialState => AuthInitial();
-
+ 
   @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,
@@ -23,18 +23,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthStarted) {
       if (_auth == null) yield AuthFailure();
       if (_auth.auth) {
-        yield AuthSuccess();
+        yield AuthSuccess(_auth);
       } else {
         yield AuthFailure();
       }
     }
 
     if (event is AuthLoggedIn) {
-      yield AuthSuccess();
+      yield AuthSuccess(_auth);
     }
 
     if (event is AuthLoggedOut) {
       await _auth.signOut();
+      //! Xoá Token dữ liệu người dùng
       final storage = new FlutterSecureStorage();
       await storage.delete(key: "token");
       yield AuthFailure();

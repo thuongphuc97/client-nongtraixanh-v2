@@ -13,10 +13,10 @@ class AuthLoggedIn extends AuthEvent {
 
 
   @override
-  List<Object> get props => [_auth];
+  List<Auth> get props => [_auth];
 
   @override
-  String toString() => 'Authenticated { email: ${_auth.uid} }';
+  String toString() => 'Authenticated { uid: ${_auth.uid} }';
 }
 
 class AuthLoggedOut extends AuthEvent {}

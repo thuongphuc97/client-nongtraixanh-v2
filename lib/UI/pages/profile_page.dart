@@ -2,9 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
 import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
+import 'package:flutter_travel_ui/models/auth_model.dart';
+import 'package:flutter_travel_ui/models/user_model.dart';
+import 'package:flutter_travel_ui/repository/user_repository.dart';
 import 'package:flutter_travel_ui/widgets/button.dart';
+import 'package:flutter_travel_ui/widgets/profile_skeleton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -13,11 +18,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String avatar =
-      "https://instagram.fsgn5-7.fna.fbcdn.net/v/t51.2885-19/s320x320/90411411_2860946900637855_8708635865879937024_n.jpg?_nc_ht=instagram.fsgn5-7.fna.fbcdn.net&_nc_ohc=2225Rw60pUYAX98Vmt2&oh=77eceebe26e0c26b14bb53a2e5e8240e&oe=5EBFA4A8";
   bool notificationOn = false;
   bool darkMode = false;
-  bool _isSign = true;
+  User _currentUser;
+
+  UserRepository _userRepository = new UserRepository();
 
   @override
   void initState() {
@@ -43,10 +48,26 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profile Page'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('Profile Page'),
+        centerTitle: true,
+        actions:_currentUser !=null?  <Widget>[
+         IconButton(onPressed: null, icon: Icon(Icons.edit))
+        ] : null,
+      ),
       body: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
         if (state is AuthFailure) return _unSignInScreen();
-        if (state is AuthSuccess) return _signedScreen();
+        if (state is AuthSuccess) {
+          final _storage = FlutterSecureStorage();
+          _storage.read(key: "uid").then((value) => setState(() {
+                _userRepository
+                    .getUserProfile(value)
+                    .then((value) => _currentUser = value);
+              }));
+
+          return _currentUser == null ? _loadingScreen() : _signedScreen();
+        }
+
         return _loadingScreen();
       }),
     );
@@ -82,16 +103,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Dinh Hoang Nhung',
+                            _currentUser.email,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text('012344'),
-                          OutlineButton(
-                            highlightedBorderColor: Colors.blue,
-                            onPressed: () {},
-                            child: Text('Edit'),
-                          )
                         ],
                       ),
                     ),

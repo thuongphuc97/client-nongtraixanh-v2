@@ -37,10 +37,8 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(color: Color(0xff3277D8), fontSize: 16),
               ),
               onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RegisterScreen()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen()));
               },
             )
           ],
@@ -135,10 +133,12 @@ class _LoginFormState extends State<LoginForm> {
               .signIn(_emailController.text, _passwordController.text);
           BlocProvider.of<AuthBloc>(context).add(AuthLoggedIn(auth));
           String token = auth.token;
+          String uid = auth.uid;
           if (auth.auth) {
             final _storage = FlutterSecureStorage();
             await _storage.write(key: "token", value: token);
-           Scaffold.of(context)..removeCurrentSnackBar();
+            await _storage.write(key: "uid", value: uid);
+            Scaffold.of(context)..removeCurrentSnackBar();
             Navigator.pop(context);
             // Navigator.pushReplacement(
             //     context, MaterialPageRoute(builder: (context) => MainScreen()));

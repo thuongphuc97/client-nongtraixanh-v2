@@ -6,9 +6,8 @@ import 'dart:async';
 class UserRepository {
   ApiProvider _provider = ApiProvider();
   
-  Future<User> signIn(String email, String password) async {
-    Map<String, dynamic> authData = {"email": email, "password": password};
-    final response = await _provider.post("api/signin", authData);
+  Future<User> getUserProfile(String uid) async {
+    final response = await _provider.get("api/profile/$uid");
     return User.fromJson(response);
   }
 }
