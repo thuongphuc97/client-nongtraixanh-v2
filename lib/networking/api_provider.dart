@@ -5,11 +5,13 @@ import 'dart:convert';
 import 'dart:async';
 
 class ApiProvider {
-  final String _baseUrl = "https://tour-api-service.herokuapp.com/";
+  // final String _baseUrl = "https://tour-api-service.herokuapp.com/";
 // final String _baseUrl = "http://localhost:9090/";
+final String _baseUrl ='http://172.16.2.107:9090/';
 
   Future<dynamic> get(String url) async {
     var responseJson;
+
     try {
       final response = await http.get(_baseUrl + url);
       responseJson = _response(response);
@@ -19,7 +21,20 @@ class ApiProvider {
     return responseJson;
   }
 
-  Future<dynamic> post(String url, Map<String,dynamic> body) async {
+  Future<dynamic> getWithHeader(
+      String url, Map<String, String> headersData) async {
+    var responseJson;
+
+    try {
+      final response = await http.get(_baseUrl + url, headers: headersData);
+      responseJson = _response(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> post(String url, Map<String, dynamic> body) async {
     var responseJson;
     try {
       final response = await http.post(_baseUrl + url,

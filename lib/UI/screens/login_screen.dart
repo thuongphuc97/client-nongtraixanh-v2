@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
 import 'package:flutter_travel_ui/UI/screens/register_screen.dart';
+import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
 import 'package:flutter_travel_ui/models/auth_model.dart';
-import 'package:flutter_travel_ui/repository/authenticate_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_travel_ui/repository/auth_repository.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,8 +15,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // var url = "http://localhost:9090";
-  var url = "https://tourserver.herokuapp.com";
   var isHidePass = true;
   var _isLoading = true;
 
@@ -69,12 +68,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: isHidePass,
                       decoration: InputDecoration(
                           labelText: "Mật Khẩu",
-                          prefixIcon:
-                              Icon(Feather.lock, size: 20),
+                          prefixIcon: Icon(Feather.lock, size: 20),
                           suffixIcon: InkWell(
                             child: isHidePass
-                                ? Icon(Feather.eye,
-                                    color: Colors.grey)
+                                ? Icon(Feather.eye, color: Colors.grey)
                                 : Icon(
                                     Feather.eye,
                                   ),
@@ -159,16 +156,30 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   signIn(String email, pass) async {
-    var e = "phuc@gmail.com";
-    var p = "phuc123Aa";
+    var e = "thuongphuc.97@gmail.com";
+    var p = "123456@Aa";
 
-    AuthenticateRepository authenticateRepository = AuthenticateRepository();
+    // var authBloc = BlocProvider.of<AuthBloc>(context);
+
+    AuthRepository authenticateRepository = AuthRepository();
     try {
-    Auth auth = await  authenticateRepository.signIn(e, p);
-    print(auth.token);
+      Auth auth = await authenticateRepository.signIn(e, p);
+      context.bloc<AuthBloc>().add(AuthLoggedIn(auth)); 
+        String token = auth.token;
+      if (auth.auth) {
+        final _storage = FlutterSecureStorage();
+     
+        // print( auth.toJson().toString());
+       await _storage.write(key: "token", value: token);
+
+
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MainScreen()));
+      }
     } catch (e) {
       print(e);
     }
+
     // SharedPreferences preferences = await SharedPreferences.getInstance();
     // Map data = {"email": e, 'password': p};
     // print('data: $data');

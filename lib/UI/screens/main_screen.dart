@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_travel_ui/UI/pages/home_page.dart';
 import 'package:flutter_travel_ui/UI/pages/notifications_page.dart';
 import 'package:flutter_travel_ui/UI/pages/profile_page.dart';
 import 'package:flutter_travel_ui/UI/pages/testpage.dart';
 import 'package:flutter_travel_ui/UI/pages/ticket_page.dart';
+import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
+import 'package:flutter_travel_ui/models/auth_model.dart';
+
+import 'dart:convert';
+
+import 'package:flutter_travel_ui/repository/auth_repository.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -22,10 +30,21 @@ class _MainScreenState extends State<MainScreen> {
   ProfilePage profilePage;
   TicketPage ticketPage;
   GetChuckCategories getChuckCategories;
+  getAuth() async {
+    final _storage = FlutterSecureStorage();
+    String token = await _storage.read(key: "token");
+    print(token);
+    if (token != null) {
+      AuthRepository authenticateRepository = AuthRepository();
+      Auth auth = await authenticateRepository.verifyToken(token);
+      context.bloc<AuthBloc>().add(AuthLoggedIn(auth));
+    }
+  }
 
   @override
-  void initState() {
+  initState() {
     super.initState();
+    getAuth();
     homePage = new HomePage();
     profilePage = new ProfilePage();
     notiPage = new NotificationsPage();
@@ -52,23 +71,26 @@ class _MainScreenState extends State<MainScreen> {
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Feather.home, // icon giờ viết kiểu chấm như vầy luôn chứ k phải như hôm trước là Feather.getIcon('ten icon nữa)
-              size: iconSize,
-            ),
-            title: Text('home'),
-                                    activeIcon: Icon(Icons.home, size: activateIconSize,)
-
-          ),
+              icon: Icon(
+                Feather
+                    .home, // icon giờ viết kiểu chấm như vầy luôn chứ k phải như hôm trước là Feather.getIcon('ten icon nữa)
+                size: iconSize,
+              ),
+              title: Text('home'),
+              activeIcon: Icon(
+                Icons.home,
+                size: activateIconSize,
+              )),
           BottomNavigationBarItem(
-            icon: Icon(
-              Feather.briefcase,
-              size: iconSize,
-            ),
-            title: Text('ticket'),
-                        activeIcon: Icon(Icons.confirmation_number, size: activateIconSize,)
-
-          ),
+              icon: Icon(
+                Feather.briefcase,
+                size: iconSize,
+              ),
+              title: Text('ticket'),
+              activeIcon: Icon(
+                Icons.confirmation_number,
+                size: activateIconSize,
+              )),
           // BottomNavigationBarItem(
           //   icon: Icon(
           //     Feather.getIconData('heart'),
@@ -79,26 +101,27 @@ class _MainScreenState extends State<MainScreen> {
 
           // ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Feather.bell,
-              size: iconSize,
-            ),
-            title: Text('notify'),
-                        activeIcon: Icon(Icons.notifications, size: activateIconSize,)
-
-          ),
+              icon: Icon(
+                Feather.bell,
+                size: iconSize,
+              ),
+              title: Text('notify'),
+              activeIcon: Icon(
+                Icons.notifications,
+                size: activateIconSize,
+              )),
           BottomNavigationBarItem(
-            icon: Icon(
-              Feather.user,
-              size: iconSize,
-            ),
-            title: Text('You'),
-            activeIcon: Icon(Icons.person, size: activateIconSize,)
-          )
+              icon: Icon(
+                Feather.user,
+                size: iconSize,
+              ),
+              title: Text('You'),
+              activeIcon: Icon(
+                Icons.person,
+                size: activateIconSize,
+              ))
         ],
       ),
     );
   }
-
-  
 }

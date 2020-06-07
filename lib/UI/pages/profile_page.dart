@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
+import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
+import 'package:flutter_travel_ui/widgets/button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -40,177 +44,293 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Profile Page'), centerTitle: true),
-      body: SingleChildScrollView(
-          child: _isSign ? _signedScreen() : _unSignInScreen()),
+      body: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+        if (state is AuthFailure) return _unSignInScreen();
+        if (state is AuthSuccess) return _signedScreen();
+        return _loadingScreen();
+      }),
     );
   }
 
+  _loadingScreen() {
+    return Center(
+        child: CupertinoActivityIndicator(
+      radius: 50,
+    ));
+  }
+
   _signedScreen() {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 20, 8, 0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(avatar),
-                    radius: 45,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 10, 20, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Dinh Hoang Nhung',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        Text('012344'),
-                        OutlineButton(
-                          highlightedBorderColor: Colors.blue,
-                          onPressed: () {},
-                          child: Text('Edit'),
-                        )
-                      ],
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 20, 8, 0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircleAvatar(
+                      //TODO backgroundImage: NetworkImage(avatar),
+                      radius: 45,
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 10, 20, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Dinh Hoang Nhung',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text('012344'),
+                          OutlineButton(
+                            highlightedBorderColor: Colors.blue,
+                            onPressed: () {},
+                            child: Text('Edit'),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 12.0,
-          ),
-          Card(
-              elevation: 3,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(children: <Widget>[
-                  ListTile(
-                    leading: Icon(MaterialCommunityIcons.ticket_account),
-                    title: Text("My Ticket"),
-                  ),
-                ]),
-              )),
-          SizedBox(
-            height: 12.0,
-          ),
-          Card(
-              elevation: 3,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(children: <Widget>[
-                  ListTile(
-                    leading: Icon(Feather.map_pin),
-                    title: Text("Location"),
-                  ),
-                  Divider(
-                    height: 8.0,
-                    color: Colors.grey,
-                    indent: 10.0,
-                  ),
-                  ListTile(
-                    leading: Icon(Feather.credit_card),
-                    title: Text("Payment"),
-                  ),
-                  Divider(
-                    height: 8.0,
-                    color: Colors.grey,
-                    indent: 10.0,
-                  ),
-                  ListTile(
-                    leading: Icon(Feather.lock),
-                    title: Text("Change Password"),
-                  ),
-                ]),
-              )),
-          SizedBox(
-            height: 12.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 0, 12),
-            child: Text("Notifications",
-                style: TextStyle(
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 12.0,
+            ),
+            Card(
+                elevation: 3,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(children: <Widget>[
+                    ListTile(
+                      leading: Icon(MaterialCommunityIcons.ticket_account),
+                      title: Text("My Ticket"),
+                    ),
+                  ]),
                 )),
-          ),
-          Card(
-              elevation: 3,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(children: <Widget>[
-                  ListTile(
-                    leading: Icon(Feather.bell),
-                    title: Text("Notification"),
-                    trailing: CupertinoSwitch(
-                        value: notificationOn,
-                        onChanged: (bool newValue) {
-                          setState(() {
-                            notificationOn = newValue;
-                          });
-                        }),
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: darkMode == true
-                        ? Icon(Feather.moon)
-                        : Icon(Feather.sun),
-                    title: Text("Dark mode"),
-                    trailing: CupertinoSwitch(
-                        value: darkMode,
-                        onChanged: (bool newValue) {
-                         _incrementCounter(newValue);
-                        }),
-                  ),
-                ]),
-              )),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 0, 12),
-            child: Text("Member Feathers",
-                style: TextStyle(
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 12.0,
+            ),
+            Card(
+                elevation: 3,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(children: <Widget>[
+                    ListTile(
+                      leading: Icon(Feather.map_pin),
+                      title: Text("Location"),
+                    ),
+                    Divider(
+                      height: 8.0,
+                      color: Colors.grey,
+                      indent: 10.0,
+                    ),
+                    ListTile(
+                      leading: Icon(Feather.credit_card),
+                      title: Text("Payment"),
+                    ),
+                    Divider(
+                      height: 8.0,
+                      color: Colors.grey,
+                      indent: 10.0,
+                    ),
+                    ListTile(
+                      leading: Icon(Feather.lock),
+                      title: Text("Change Password"),
+                    ),
+                  ]),
                 )),
-          ),
-          Card(
-              elevation: 3,
+            SizedBox(
+              height: 12.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 12),
+              child: Text("Notifications",
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+            Card(
+                elevation: 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(children: <Widget>[
+                    ListTile(
+                      leading: Icon(Feather.bell),
+                      title: Text("Notification"),
+                      trailing: CupertinoSwitch(
+                          value: notificationOn,
+                          onChanged: (bool newValue) {
+                            setState(() {
+                              notificationOn = newValue;
+                            });
+                          }),
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: darkMode == true
+                          ? Icon(Feather.moon)
+                          : Icon(Feather.sun),
+                      title: Text("Dark mode"),
+                      trailing: CupertinoSwitch(
+                          value: darkMode,
+                          onChanged: (bool newValue) {
+                            _incrementCounter(newValue);
+                          }),
+                    ),
+                  ]),
+                )),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 0, 12),
+              child: Text("Member Feathers",
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+            Card(
+                elevation: 3,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(children: <Widget>[
+                    ListTile(
+                      leading: Icon(Feather.help_circle),
+                      title: Text("Help Center"),
+                    ),
+                    Divider(
+                      height: 8.0,
+                      color: Colors.grey,
+                      indent: 10.0,
+                    ),
+                    ListTile(
+                      leading: Icon(Feather.settings),
+                      title: Text("Setting"),
+                    ),
+                  ]),
+                )),
+            Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(children: <Widget>[
-                  ListTile(
-                    leading: Icon(Feather.help_circle),
-                    title: Text("Help Center"),
-                  ),
-                  Divider(
-                    height: 8.0,
-                    color: Colors.grey,
-                    indent: 10.0,
-                  ),
-                  ListTile(
-                    leading: Icon(Feather.settings),
-                    title: Text("Setting"),
-                  ),
-                ]),
-              ))
-        ],
+                padding: const EdgeInsets.all(8.0),
+                child: RedGradientButton(
+                    text: "Đăng xuất",
+                    onTap: () {
+                      context.bloc<AuthBloc>().add(AuthLoggedOut());
+                      
+                    }),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   _unSignInScreen() {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          const Text(
-              "Bạn chưa đăng nhập, vui lòng đăng nhập để truy cập nhiều tính năng của ứng dụng"),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 20, 8, 0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 10, 20, 0),
+                      child: GreenGradientButton(
+                        text: 'Đăng nhập / Đăng ký'.toUpperCase(),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 12.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 12),
+              child: Text("Notifications",
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+            Card(
+                elevation: 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(children: <Widget>[
+                    ListTile(
+                      leading: Icon(Feather.bell),
+                      title: Text("Notification"),
+                      trailing: CupertinoSwitch(
+                          value: notificationOn,
+                          onChanged: (bool newValue) {
+                            setState(() {
+                              notificationOn = newValue;
+                            });
+                          }),
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: darkMode == true
+                          ? Icon(Feather.moon)
+                          : Icon(Feather.sun),
+                      title: Text("Dark mode"),
+                      trailing: CupertinoSwitch(
+                          value: darkMode,
+                          onChanged: (bool newValue) {
+                            _incrementCounter(newValue);
+                          }),
+                    ),
+                  ]),
+                )),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 0, 12),
+              child: Text("Member Feathers",
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+            Card(
+                elevation: 3,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(children: <Widget>[
+                    ListTile(
+                      leading: Icon(Feather.help_circle),
+                      title: Text("Help Center"),
+                    ),
+                    Divider(
+                      height: 8.0,
+                      color: Colors.grey,
+                      indent: 10.0,
+                    ),
+                    ListTile(
+                      leading: Icon(Feather.settings),
+                      title: Text("Setting"),
+                    ),
+                  ]),
+                ))
+          ],
+        ),
       ),
     );
   }

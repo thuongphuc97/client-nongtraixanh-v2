@@ -1,31 +1,56 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
-import 'package:flutter_travel_ui/UI/screens/main_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  // Destination destination = new Destination(activities: [],imageUrl:"https://scontent-xsp1-2.xx.fbcdn.net/v/t1.0-1/p160x160/85153336_1482219295267143_209555478756196352_o.jpg",city: "HCM",country: "VN");
+import 'UI/screens/main_screen.dart';
+import 'blocs/auth/auth_bloc.dart';
+import 'models/auth_model.dart';
 
+class MyApp extends StatefulWidget {
+ bool _isDark=true;
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+
+
+class _MyAppState extends State<MyApp> {
+ _loadDarkMode() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  bool v=  (prefs.getBool('darkMode') ?? false);
+  setState(() {
+    widget._isDark = v;
+  });
+}
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadDarkMode();
+  }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Travel UI',
-      theme: ThemeData(
-        primaryColor: Color(0xFF3EBACE),
-        accentColor: Color(0xFFD8ECF1),
-        // no con rat la nhieu field can setting neu em muon skin no dep nhat co the
-        scaffoldBackgroundColor: Color(0xFFF3F5F7),
-        accentIconTheme: IconThemeData(color: Colors.blue),
-        iconTheme: IconThemeData(color: Colors.blue),
-     
+    Auth auth = new Auth();
 
-      ),
-       darkTheme:
-          ThemeData.dark(),
-      // home: MainScreen()
-      home: LoginScreen(),
-      // DestinationScreen(destination: destination,),
+    return BlocProvider(
+      create: (context) => AuthBloc(auth)..add(AuthStarted()),
+      child: MaterialApp(
+          title: 'HUTECH TRAVEL',
+          theme: ThemeData(
+            primaryColor: Color(0xFF3EBACE),
+            accentColor: Color(0xFFD8ECF1),
+            scaffoldBackgroundColor: Color(0xFFF3F5F7),
+            accentIconTheme: IconThemeData(color: Colors.blue),
+            iconTheme: IconThemeData(color: Colors.blue),
+          ),
+          darkTheme:widget._isDark? ThemeData.dark():null,
+          home: MainScreen()
+          // home: LoginScreen(),
+          ),
     );
   }
 }
