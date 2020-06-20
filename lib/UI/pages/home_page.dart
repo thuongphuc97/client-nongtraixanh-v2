@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       height: 200,
       child: Carousel(
-        // cai carousel nay chi can quan tam them hinh vo cho no thoi
+        // carousel hiệu ứng hình động
         autoplayDuration: Duration(seconds: 10),
         dotSize: 5,
         dotPosition: DotPosition.bottomLeft,

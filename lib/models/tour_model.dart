@@ -29,7 +29,7 @@ class Tour {
       this.createdAt,
       this.updatedAt});
 
-  Tour.fromJson(Map<String, dynamic> json) {
+  Tour.fromJson(Map<String, dynamic> json) { // get 
     id = json['_id'];
     title = json['title'];
     imageUrl = json['image_url'];
@@ -44,7 +44,7 @@ class Tour {
     updatedAt = json['updated_at'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() { // post
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.id;
     data['title'] = this.title;
@@ -62,7 +62,7 @@ class Tour {
   }
 }
 
-//mot xoa may nay di ha, yes
+//tam
 List<Tour> tours = [
   Tour(
     id: '1',
