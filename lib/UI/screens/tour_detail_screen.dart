@@ -1,9 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
 import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
 import 'package:flutter_travel_ui/networking/response.dart';
+import 'package:flutter_travel_ui/repository/booking_repository.dart';
 import 'package:flutter_travel_ui/widgets/response_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:toast/toast.dart';
 
 class TourDetailScreen extends StatefulWidget {
   final String tourId;
@@ -15,6 +20,8 @@ class TourDetailScreen extends StatefulWidget {
 }
 
 class _TourDetailScreenState extends State<TourDetailScreen> {
+  BookingRepository _bookingRepository = new BookingRepository();
+
   Text _buildRatingStars(int rating) {
     String stars = '';
     for (int i = 0; i < rating; i++) {
@@ -25,6 +32,11 @@ class _TourDetailScreenState extends State<TourDetailScreen> {
   }
 
   TourBloc _bloc;
+  getToken() async {
+    final _storage = FlutterSecureStorage();
+    return await _storage.read(key: "token");
+  }
+
   @override
   void initState() {
     super.initState();
@@ -62,179 +74,218 @@ class _TourDetailScreenState extends State<TourDetailScreen> {
       ),
     );
   }
-}
 
-_tourDetail(context, Tour tour) {
-  String _valGender;
-  List _listGender = ["Người lớn", "Trẻ em"];
-  return Column(
-    children: <Widget>[
-      Stack(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(0.0, 2.0),
-                  blurRadius: 6.0,
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30.0),
-              child: Image(
-                image: NetworkImage(tour.imageUrl),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  iconSize: 30.0,
-                  color: Colors.black,
-                  onPressed: () => Navigator.pop(context),
-                ),
-                Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      iconSize: 30.0,
-                      color: Colors.black,
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    IconButton(
-                      icon: Icon(FontAwesomeIcons.sortAmountDown),
-                      iconSize: 25.0,
-                      color: Colors.black,
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            left: 20.0,
-            bottom: 20.0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  tour.title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 35.0,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
+  _tourDetail(context, Tour tour) {
+    String _valGender;
+    List _listGender = ["Người lớn", "Trẻ em"];
+    return Column(
+      children: <Widget>[
+        Stack(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0.0, 2.0),
+                    blurRadius: 6.0,
                   ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: Image(
+                  image: NetworkImage(tour.imageUrl),
+                  fit: BoxFit.cover,
                 ),
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.moneyBill,
-                      size: 15.0,
-                      color: Colors.white70,
-                    ),
-                    SizedBox(width: 5.0),
-                    Text(
-                      ' ${tour.adultPrice} VND',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            right: 20.0,
-            bottom: 20.0,
-            child: Icon(
-              Icons.location_on,
-              color: Colors.white70,
-              size: 25.0,
-            ),
-          ),
-        ],
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownButton(
-                hint: Text("Chọn độ tuổi"),
-                value: _valGender,
-                items: _listGender.map((value) {
-                  return DropdownMenuItem(
-                    child: Text(value),
-                    value: value,
-                  );
-                }).toList(),
-                onChanged: (value) {},
               ),
             ),
-            Row(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.keyboard_arrow_down), onPressed: null),
-                Text('1'),
-                IconButton(icon: Icon(Icons.keyboard_arrow_up), onPressed: () {})
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    iconSize: 30.0,
+                    color: Colors.black,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        iconSize: 30.0,
+                        color: Colors.black,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      IconButton(
+                        icon: Icon(FontAwesomeIcons.sortAmountDown),
+                        iconSize: 25.0,
+                        color: Colors.black,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              left: 20.0,
+              bottom: 20.0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    tour.title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35.0,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.moneyBill,
+                        size: 15.0,
+                        color: Colors.white70,
+                      ),
+                      SizedBox(width: 5.0),
+                      Text(
+                        ' ${tour.adultPrice} VND',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              right: 20.0,
+              bottom: 20.0,
+              child: Icon(
+                Icons.location_on,
+                color: Colors.white70,
+                size: 25.0,
+              ),
             ),
           ],
         ),
-      ),
-      Text(
-        'Mô Tả',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Divider(
-          color: Colors.black,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton(
+                  hint: Text("Chọn độ tuổi"),
+                  value: _valGender,
+                  items: _listGender.map((value) {
+                    return DropdownMenuItem(
+                      child: Text(value),
+                      value: value,
+                    );
+                  }).toList(),
+                  onChanged: (value) {},
+                ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.keyboard_arrow_down), onPressed: null),
+                  Text('1'),
+                  IconButton(
+                      icon: Icon(Icons.keyboard_arrow_up), onPressed: () {})
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          '\tNha Trang với khí hậu ôn hòa, biển xanh trong quanh năm cùng những điểm vui chơi bậc nhất và không ngừng đổi mới hằng ngày luôn thu hút du khách gần xa. Đến với Nha Trang, du khách không chỉ tận hưởng những đợt gió biển trong nắng ấm mà còn có dịp thưởng thức hải sản tươi ngon cùng sự chào đón nồng hậu từ những người dân vùng biển nghĩa tình, cho Quý khách trải nghiệm khó quên tại vùng đất này.',
-          style: TextStyle(fontSize: 16),
+        Text(
+          'Mô Tả',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
         ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Divider(
-          color: Colors.black,
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Divider(
+            color: Colors.black,
+          ),
         ),
-      ),
-      Text(
-        'Lịch trình',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Divider(
-          color: Colors.black,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            '\tNha Trang với khí hậu ôn hòa, biển xanh trong quanh năm cùng những điểm vui chơi bậc nhất và không ngừng đổi mới hằng ngày luôn thu hút du khách gần xa. Đến với Nha Trang, du khách không chỉ tận hưởng những đợt gió biển trong nắng ấm mà còn có dịp thưởng thức hải sản tươi ngon cùng sự chào đón nồng hậu từ những người dân vùng biển nghĩa tình, cho Quý khách trải nghiệm khó quên tại vùng đất này.',
+            style: TextStyle(fontSize: 16),
+          ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Divider(
+            color: Colors.black,
+          ),
+        ),
+        Text(
+          'Lịch trình',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Divider(
+            color: Colors.black,
+          ),
+        ),
+        FloatingActionButton(
+          backgroundColor: Colors.amber,
+          onPressed: () async {
+            String token = await getToken();
+            String type = "adult";
+            if (token == null) {
+              showCupertinoSheet(context, 'Yêu cầu đăng nhập',
+                  'Để sử dụng tính năng giỏ hàng yêu cầu bạn phải đăng nhập?');
+            } else {
+              await _bookingRepository.addTourToCart(token, tour.id, type, 1);
+              Toast.show('Thêm giỏ hàng thành công!', context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            }
+          },
+          child: Icon(Icons.add_shopping_cart),
+        )
+      ],
+    );
+  }
+
+  showCupertinoSheet(BuildContext context, String title, String msg) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(title),
+        message: Text(msg),
+        cancelButton: CupertinoActionSheetAction(
+          child: Text('Bỏ qua', style: TextStyle(color: Colors.red)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            child: Text('Đăng nhập'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              // PushPages().pushToLoginPage(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
+          )
+        ],
       ),
-      FloatingActionButton(
-        backgroundColor: Colors.amber,
-        onPressed: () {},
-        child: Icon(Icons.add_shopping_cart),
-      )
-    ],
-  );
+    );
+  }
 }

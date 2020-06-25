@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_travel_ui/models/order_item.dart';
-import 'package:fw_ticket/fw_ticket.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class PayWithMomo extends StatelessWidget {
   @override
@@ -15,10 +13,7 @@ class PayWithMomo extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10),
-              child: SvgPicture.asset(
-                'assets/momo.svg',
-                height: 60,
-              ),
+              child: Image.asset('assets/momo.png',height: 60,),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
