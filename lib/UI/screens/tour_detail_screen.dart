@@ -46,7 +46,7 @@ class _TourDetailScreenState extends State<TourDetailScreen> {
                   return Loading(loadingMessage: snapshot.data.message);
                   break;
                 case Status.COMPLETED:
-                return   _tourDetail(context, snapshot.data.data);
+                  return _tourDetail(context, snapshot.data.data);
                   break;
                 case Status.ERROR:
                   return Error(
@@ -64,7 +64,9 @@ class _TourDetailScreenState extends State<TourDetailScreen> {
   }
 }
 
-_tourDetail(context,Tour tour) {
+_tourDetail(context, Tour tour) {
+  String _valGender;
+  List _listGender = ["Người lớn", "Trẻ em"];
   return Column(
     children: <Widget>[
       Stack(
@@ -165,8 +167,74 @@ _tourDetail(context,Tour tour) {
           ),
         ],
       ),
-      Text('Gioi thieu')
-   
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButton(
+                hint: Text("Chọn độ tuổi"),
+                value: _valGender,
+                items: _listGender.map((value) {
+                  return DropdownMenuItem(
+                    child: Text(value),
+                    value: value,
+                  );
+                }).toList(),
+                onChanged: (value) {},
+              ),
+            ),
+            Row(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.keyboard_arrow_down), onPressed: null),
+                Text('1'),
+                IconButton(icon: Icon(Icons.keyboard_arrow_up), onPressed: () {})
+              ],
+            ),
+          ],
+        ),
+      ),
+      Text(
+        'Mô Tả',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Divider(
+          color: Colors.black,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          '\tNha Trang với khí hậu ôn hòa, biển xanh trong quanh năm cùng những điểm vui chơi bậc nhất và không ngừng đổi mới hằng ngày luôn thu hút du khách gần xa. Đến với Nha Trang, du khách không chỉ tận hưởng những đợt gió biển trong nắng ấm mà còn có dịp thưởng thức hải sản tươi ngon cùng sự chào đón nồng hậu từ những người dân vùng biển nghĩa tình, cho Quý khách trải nghiệm khó quên tại vùng đất này.',
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Divider(
+          color: Colors.black,
+        ),
+      ),
+      Text(
+        'Lịch trình',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Divider(
+          color: Colors.black,
+        ),
+      ),
+      FloatingActionButton(
+        backgroundColor: Colors.amber,
+        onPressed: () {},
+        child: Icon(Icons.add_shopping_cart),
+      )
     ],
   );
 }

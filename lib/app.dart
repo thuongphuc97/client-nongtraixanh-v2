@@ -35,6 +35,7 @@ class _MyAppState extends State<MyApp> {
       create: (context) => AuthBloc(auth)..add(AuthStarted()),
       child: MaterialApp(
           title: 'HUTECH TRAVEL',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primaryColor: Color(0xFF3EBACE),
             accentColor: Color(0xFFD8ECF1),

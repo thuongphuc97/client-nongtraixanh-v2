@@ -4,7 +4,7 @@ import 'package:flutter_travel_ui/models/tour_model.dart';
 import 'package:flutter_travel_ui/widgets/home_tour_item.dart';
 
 class ListTour extends StatelessWidget {
-  //tai sao cjp nauy la less
+  // less
   final String title;
   final List<Tour> tours;
   const ListTour({Key key, this.title, this.tours}) : super(key: key);
