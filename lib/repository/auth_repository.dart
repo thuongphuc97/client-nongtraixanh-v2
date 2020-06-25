@@ -20,7 +20,7 @@ class AuthRepository {
   Future<Auth> verifyToken(String token) async {
     Map<String, String> headers = {'authorization': token,'Content-Type': 'application/json'};
     print(headers);
-    final response = await _provider.getWithHeader("api/me", headers);
+    final response = await _provider.getWithHeader("api/me",headersData: headers);
     return Auth.fromJson(response);
   }
 

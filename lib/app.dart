@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
             accentIconTheme: IconThemeData(color: Colors.blue),
             iconTheme: IconThemeData(color: Colors.blue),
           ),
-          darkTheme: _isDark ? ThemeData.dark() : null,
+          darkTheme: _isDark ? ThemeData.dark() : ThemeData.light(),
           home: MainScreen()
           // home: LoginScreen(),
           ),

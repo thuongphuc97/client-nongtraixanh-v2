@@ -22,7 +22,7 @@ class ApiProvider {
   }
 
   Future<dynamic> getWithHeader(
-      String url, Map<String, String> headersData) async {
+      String url, {Map<String, String> headersData}) async {
     var responseJson;
 
     try {
