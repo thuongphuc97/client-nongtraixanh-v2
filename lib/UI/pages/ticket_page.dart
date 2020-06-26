@@ -61,7 +61,8 @@ class _TicketPageState extends State<TicketPage> {
                 return ListView.builder(
                   itemCount: snapshot.data.data.bookingItems.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return TicketItem();
+                    return TicketItem(
+                        item: snapshot.data.data.bookingItems[index]);
                   },
                 );
                 break;
@@ -93,8 +94,8 @@ class _TicketPageState extends State<TicketPage> {
             Center(
               child: Text(
                 'Bạn phải đăng nhập để có thể sử dụng chức năng này!',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),textAlign: TextAlign.center
-                ,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
             ),
             GreenGradientButton(

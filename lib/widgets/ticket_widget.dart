@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travel_ui/models/booking_model.dart';
 import 'package:flutter_travel_ui/models/order_item.dart';
 import 'package:fw_ticket/fw_ticket.dart';
 
 class TicketItem extends StatefulWidget {
-  final OrderItem item;
+  final BookingItems item;
 
   const TicketItem({Key key, this.item}) : super(key: key);
   @override
@@ -43,8 +44,8 @@ class _TicketItemState extends State<TicketItem> {
                   ),
                   Center(
                     child: Text(
-                     'Nha Trang\n1 Vé\nGía 900000 VND',
-                      // '${item.tour.title}\n${item.quantity} Vé\nGiá: ${item.tour.price} VNĐ',
+                     'Nha Trang\n${widget.item.type=="adult"?"Người lớn":"Trẻ nhỏ"} -${widget.item.quantity} Vé\nGía 900000 VND',
+                 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 30,
@@ -136,7 +137,7 @@ class _TicketItemState extends State<TicketItem> {
                             ),
                             Text(
                               // '${item.quantity} TICKET',
-                              '1 Vé',
+                              '${widget.item.quantity} Vé',
                               style: TextStyle(fontSize: 18.0),
                             ),
                             IconButton(
