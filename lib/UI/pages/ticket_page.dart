@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
 import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
 import 'package:flutter_travel_ui/blocs/booking_bloc.dart';
 import 'package:flutter_travel_ui/models/booking_model.dart';
 import 'package:flutter_travel_ui/networking/response.dart';
+import 'package:flutter_travel_ui/widgets/button.dart';
 import 'package:flutter_travel_ui/widgets/response_widget.dart';
 import 'package:flutter_travel_ui/widgets/ticket_widget.dart';
 
@@ -76,6 +78,37 @@ class _TicketPageState extends State<TicketPage> {
       ),
     );
   }
+
+  _unSignInScreen() {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Ticket'),
+          centerTitle: true,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          textBaseline: TextBaseline.ideographic,
+          children: <Widget>[
+            Center(
+              child: Text(
+                'Bạn phải đăng nhập để có thể sử dụng chức năng này!',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),textAlign: TextAlign.center
+                ,
+              ),
+            ),
+            GreenGradientButton(
+              text: 'Đăng nhập / Đăng ký'.toUpperCase(),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              },
+            ),
+          ],
+        ));
+  }
 }
 
 _loadingScreen() {
@@ -83,15 +116,4 @@ _loadingScreen() {
       child: CupertinoActivityIndicator(
     radius: 50,
   ));
-}
-
-_unSignInScreen() {
-  return Scaffold(
-      appBar: AppBar(
-        title: Text('Ticket'),
-        centerTitle: true,
-      ),
-      body: Container(
-        child: Text('Ban chua dang nhap'),
-      ));
 }
