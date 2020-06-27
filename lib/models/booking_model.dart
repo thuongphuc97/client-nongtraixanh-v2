@@ -5,15 +5,16 @@ class Booking {
   List<BookingItems> bookingItems;
   String updatedAt;
   String createdAt;
+  int total;
 
-  Booking({
-    this.sId,
-    this.uid,
-    this.status,
-    this.bookingItems,
-    this.updatedAt,
-    this.createdAt,
-  });
+  Booking(
+      {this.sId,
+      this.uid,
+      this.status,
+      this.bookingItems,
+      this.updatedAt,
+      this.createdAt,
+      this.total});
 
   Booking.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -27,6 +28,7 @@ class Booking {
     }
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
+    total = json['total'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +41,7 @@ class Booking {
     }
     data['updated_at'] = this.updatedAt;
     data['created_at'] = this.createdAt;
+    data['total'] = this.total;
     return data;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/UI/pages/testpage.dart';
+import 'package:flutter_travel_ui/UI/screens/tour_detail_screen.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
 import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
 import 'package:flutter_travel_ui/networking/response.dart';
@@ -88,22 +89,28 @@ class TourList extends StatelessWidget {
               child: SizedBox(
                 height: 65,
                 child: InkWell(
-                  onTap: () {
-                    print("ID:${tourList[index].id}");
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => GetChuckCategories(
-                              tourId: tourList[index].id
-                            )));
-                            
-                  },
-                  child: Container(
-                    color: Color(0xFF333333),
-                    alignment: Alignment.center,
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                        child:  Text(tourList[index].title)),
-                  ),
-                ),
+                    onTap: () {
+                      print("ID:${tourList[index].id}");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => TourDetailScreen(
+                            tourId: tourList[index].id,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      child: Row(
+                        children: <Widget>[
+                          Image(
+                            image: NetworkImage(tourList[index].imageUrl),
+                            fit: BoxFit.cover,
+                          ),
+                          Text(tourList[index].title.substring(0,33)+'...',)
+                        ],
+                      ),
+                    )),
               ));
         },
         itemCount: tourList.length,

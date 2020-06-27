@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
                         tours: snapshot.data.data,
                         title: "TOP Tours",
                       );
+                      
                       break;
                     case Status.ERROR:
                       return Error(

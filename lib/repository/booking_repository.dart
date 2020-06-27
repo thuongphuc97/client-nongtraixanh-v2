@@ -21,6 +21,20 @@ class BookingRepository {
     return Tour.fromJson(response);
   }
 
+  Future<Tour> editCart(
+      String token, String tourId, String type, int quantity) async {
+    Map<String, String> headers = {
+      'authorization': token,
+      'Content-Type': 'application/json'
+    };
+    print(headers);
+    final response = await _provider.getWithHeader(
+        "api/booking/edit-quantity-cart/$tourId/$type/$quantity",
+        headersData: headers);
+
+    return Tour.fromJson(response);
+  }
+
   Future<Booking> getCart(String token) async {
     Map<String, String> headers = {
       'authorization': token,

@@ -1,11 +1,9 @@
-import 'package:json_annotation/json_annotation.dart';
-
-@JsonSerializable()
 class Tour {
   String id;
   String title;
   String imageUrl;
   String descriptions;
+  List<Activities> activities;
   String vehicle;
   int day;
   int night;
@@ -20,6 +18,7 @@ class Tour {
       this.title,
       this.imageUrl,
       this.descriptions,
+      this.activities,
       this.vehicle,
       this.day,
       this.night,
@@ -29,11 +28,17 @@ class Tour {
       this.createdAt,
       this.updatedAt});
 
-  Tour.fromJson(Map<String, dynamic> json) { // get 
+  Tour.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     title = json['title'];
     imageUrl = json['image_url'];
     descriptions = json['descriptions'];
+    if (json['activities'] != null) {
+      activities = new List<Activities>();
+      json['activities'].forEach((v) {
+        activities.add(new Activities.fromJson(v));
+      });
+    }
     vehicle = json['vehicle'];
     day = json['day'];
     night = json['night'];
@@ -44,12 +49,15 @@ class Tour {
     updatedAt = json['updated_at'];
   }
 
-  Map<String, dynamic> toJson() { // post
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.id;
     data['title'] = this.title;
     data['image_url'] = this.imageUrl;
     data['descriptions'] = this.descriptions;
+    if (this.activities != null) {
+      data['activities'] = this.activities.map((v) => v.toJson()).toList();
+    }
     data['vehicle'] = this.vehicle;
     data['day'] = this.day;
     data['night'] = this.night;
@@ -62,34 +70,24 @@ class Tour {
   }
 }
 
-//tam
-List<Tour> tours = [
-  Tour(
-    id: '1',
-    title: "tour 1",
-    imageUrl: 'assets/images/venice.jpg',
-    childPrice: 150,
-    descriptions: 'Visit Venice for an amazing and unforgettable adventure.',
-  ),
-  Tour(
-    id: '1',
-    title: "tour 1",
-    imageUrl: 'assets/images/venice.jpg',
-    childPrice: 150,
-    descriptions: 'Visit Venice for an amazing and unforgettable adventure.',
-  ),
-  Tour(
-    id: '1',
-    title: "tour 1",
-    imageUrl: 'assets/images/venice.jpg',
-    childPrice: 150,
-    descriptions: 'Visit Venice for an amazing and unforgettable adventure.',
-  ),
-  Tour(
-    id: '1',
-    title: "tour 1",
-    imageUrl: 'assets/images/venice.jpg',
-    childPrice: 150,
-    descriptions: 'Visit Venice for an amazing and unforgettable adventure.',
-  ),
-];
+class Activities {
+  String sId;
+  String num;
+  String desc;
+
+  Activities({this.sId, this.num, this.desc});
+
+  Activities.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    num = json['num'];
+    desc = json['desc'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['num'] = this.num;
+    data['desc'] = this.desc;
+    return data;
+  }
+}

@@ -1,4 +1,5 @@
 part of 'login_bloc.dart';
+
 @immutable
 class LoginState {
   final bool isEmailValid;
@@ -6,7 +7,7 @@ class LoginState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
-
+  final bool isSeePass;
   bool get isFormValid => isEmailValid && isPasswordValid;
 
   LoginState({
@@ -15,46 +16,47 @@ class LoginState {
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
+    @required this.isSeePass,
   });
 
   factory LoginState.empty() {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: false,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: false,
+        isSuccess: false,
+        isFailure: false,
+        isSeePass: false);
   }
 
   factory LoginState.loading() {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: true,
-      isSuccess: false,
-      isFailure: false,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: true,
+        isSuccess: false,
+        isFailure: false,
+        isSeePass: false);
   }
 
   factory LoginState.failure() {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      isFailure: true,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: false,
+        isSuccess: false,
+        isFailure: true,
+        isSeePass: false);
   }
 
   factory LoginState.success() {
     return LoginState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: true,
-      isFailure: false,
-    );
+        isEmailValid: true,
+        isPasswordValid: true,
+        isSubmitting: false,
+        isSuccess: true,
+        isFailure: false,
+        isSeePass: false);
   }
 
   LoginState update({
@@ -77,6 +79,7 @@ class LoginState {
     bool isSubmitting,
     bool isSuccess,
     bool isFailure,
+    bool isSeePass,
   }) {
     return LoginState(
       isEmailValid: isEmailValid ?? this.isEmailValid,
@@ -84,6 +87,7 @@ class LoginState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      isSeePass: isSeePass ?? this.isSeePass,
     );
   }
 

@@ -65,7 +65,7 @@ class _LoginFormState extends State<LoginForm> {
 
   LoginBloc _loginBloc;
 
-  AuthRepository get _authRepository => widget._authRepository;
+  // AuthRepository get _authRepository => widget._authRepository;
 
   bool get isPopulated =>
       _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;

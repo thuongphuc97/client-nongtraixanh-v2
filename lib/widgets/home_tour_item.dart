@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/models/tour_model.dart';
+import 'package:intl/intl.dart';
 
 class HomeTourItem extends StatelessWidget {
   final Tour tour;
@@ -8,6 +9,7 @@ class HomeTourItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formatter = new NumberFormat("#,###");
     var backgroundColor = Colors.white;
     if (MediaQuery.of(context).platformBrightness == Brightness.dark)
       backgroundColor = Colors.black;
@@ -20,7 +22,7 @@ class HomeTourItem extends StatelessWidget {
           Positioned(
             bottom: 15.0,
             child: Container(
-              height: 120.0,
+              height: 150.0,
               width: 200.0,
               decoration: BoxDecoration(
                 color: backgroundColor,
@@ -33,7 +35,7 @@ class HomeTourItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${tour.title}', // lấy các giá trị từ đối tượng để show leen
+                      '${formatter.format(tour.childPrice)} VND \n${formatter.format(tour.adultPrice)} VND', // lấy các giá trị từ đối tượng để show leen
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w600,
@@ -41,7 +43,7 @@ class HomeTourItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      tour.descriptions,
+                      '${tour.descriptions.length < 40 ? tour.descriptions : tour.descriptions.substring(0, 40).toLowerCase().replaceFirst("\n", " ") + '...'}',
                       style: TextStyle(
                         color: Colors.grey,
                       ),

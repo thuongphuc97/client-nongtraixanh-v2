@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
 import 'package:flutter_travel_ui/models/booking_model.dart';
 import 'package:flutter_travel_ui/models/order_item.dart';
+import 'package:flutter_travel_ui/models/tour_model.dart';
+import 'package:flutter_travel_ui/networking/response.dart';
+import 'package:flutter_travel_ui/repository/booking_repository.dart';
+import 'package:flutter_travel_ui/repository/tour_repository.dart';
+import 'package:flutter_travel_ui/widgets/response_widget.dart';
 import 'package:fw_ticket/fw_ticket.dart';
+import 'package:intl/intl.dart';
 
 class TicketItem extends StatefulWidget {
   final BookingItems item;
@@ -12,14 +20,48 @@ class TicketItem extends StatefulWidget {
 }
 
 class _TicketItemState extends State<TicketItem> {
-  int quantity = 2;
   bool isHide = true;
+  final formatter = new NumberFormat("#,###");
+  BookingRepository _bookingRepository = new BookingRepository();
+  Tour tour;
+  TourBloc _bloc;
+  @override
+  void initState() {
+    super.initState();
+    _bloc = TourBloc();
+    _bloc.fetchTourById(widget.item.tourId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<Response<Tour>>(
+      stream: _bloc.tourDataStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          switch (snapshot.data.status) {
+            case Status.LOADING:
+              return Loading(loadingMessage: snapshot.data.message);
+              break;
+            case Status.COMPLETED:
+              return _itemBuilder(context, snapshot.data.data);
+              break;
+            case Status.ERROR:
+              return Error(
+                errorMessage: snapshot.data.message,
+                onRetryPressed: () => _bloc.fetchTourById(widget.item.tourId),
+              );
+              break;
+          }
+        }
+        return Container();
+      },
+    );
+  }
+
+  _itemBuilder(context, Tour tour) {
     bool _isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
-
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
@@ -36,16 +78,14 @@ class _TicketItemState extends State<TicketItem> {
                 alignment: AlignmentDirectional.center,
                 children: <Widget>[
                   Image.network(
-                    // item.tour.imagesUrl,
-                    'https://cdn1.nhatrangtoday.vn/images/photos/bai-bien-nha-trang-top.jpg',
+                    tour.imageUrl,
                     width: _width,
                     height: _height / 5,
                     fit: BoxFit.fill,
                   ),
                   Center(
                     child: Text(
-                     'Nha Trang\n${widget.item.type=="adult"?"Người lớn":"Trẻ nhỏ"} -${widget.item.quantity} Vé\nGía 900000 VND',
-                 
+                      '${tour.title.substring(0, 21) + "..."}\n${widget.item.type == "adult" ? "Người lớn" : "Trẻ nhỏ"} -${widget.item.quantity} Vé\n${widget.item.type == "adult" ? formatter.format(tour.adultPrice) : formatter.format(tour.childPrice)} VND',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 30,
@@ -79,15 +119,14 @@ class _TicketItemState extends State<TicketItem> {
                     alignment: AlignmentDirectional.center,
                     children: <Widget>[
                       Image.network(
-                        'https://cdn1.nhatrangtoday.vn/images/photos/bai-bien-nha-trang-top.jpg', // item.tour.imagesUrl,
+                        tour.imageUrl, // item.tour.imagesUrl,
                         width: _width,
                         height: _height / 5,
                         fit: BoxFit.fill,
                       ),
                       Center(
                         child: Text(
-                          // item.tour.title,
-                          'Nha Trang',
+                          tour.title.substring(0, 21) + ".....",
                           style: TextStyle(
                             fontSize: 30,
                             color: Colors.white,
@@ -129,12 +168,14 @@ class _TicketItemState extends State<TicketItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            GestureDetector(
-                              child: Icon(
-                                Icons.remove,
-                                color: Colors.lightBlue,
-                              ),
-                            ),
+                             IconButton(
+                                icon: Icon(
+                                  Icons.remove,
+                                  color: Colors.lightBlue,
+                                ),
+                                onPressed: () {
+                                  _changeValue(widget.item,--widget.item.quantity);
+                                }),
                             Text(
                               // '${item.quantity} TICKET',
                               '${widget.item.quantity} Vé',
@@ -146,7 +187,7 @@ class _TicketItemState extends State<TicketItem> {
                                   color: Colors.lightBlue,
                                 ),
                                 onPressed: () {
-                                  // _increasement();
+                                  _changeValue(widget.item,++widget.item.quantity);
                                 })
                           ],
                         ),
@@ -179,10 +220,10 @@ class _TicketItemState extends State<TicketItem> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('Time'),
+                                Text('Loại vé'),
                                 FittedBox(
                                   child: Text(
-                                    '9:00PM',
+                                    '${widget.item.type == "adult" ? "Người lớn" : "Trẻ nhỏ"}',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18.0),
@@ -200,8 +241,7 @@ class _TicketItemState extends State<TicketItem> {
                                 Text('Price'),
                                 FittedBox(
                                   child: Text(
-                                    // '${item.tour.price} VND  ',
-                                    '900000 VND',
+                                    '${widget.item.type == "adult" ? formatter.format(tour.adultPrice) : formatter.format(tour.childPrice)} VND',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18.0),
@@ -229,9 +269,16 @@ class _TicketItemState extends State<TicketItem> {
     });
   }
 
-  // void _increasement() {
-  //   setState(() {
-  //     item.quantity++;
-  //   });
-  // }
+  getToken() async {
+    final _storage = FlutterSecureStorage();
+    return await _storage.read(key: "token");
+  }
+
+  void _changeValue(item,quantity) async {
+    String token = await getToken();
+    await _bookingRepository.editCart(token, item.tourId, item.type, quantity);
+  setState(() {
+    
+  });
+  }
 }
