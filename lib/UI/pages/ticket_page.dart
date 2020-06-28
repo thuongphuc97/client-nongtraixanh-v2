@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_travel_ui/UI/screens/checkout_screen.dart';
 import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
+import 'package:flutter_travel_ui/UI/screens/payment_success_screen.dart';
 import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
 import 'package:flutter_travel_ui/blocs/booking_bloc.dart';
 import 'package:flutter_travel_ui/models/booking_model.dart';
@@ -28,7 +29,8 @@ class _TicketPageState extends State<TicketPage> {
     final _storage = FlutterSecureStorage();
     return await _storage.read(key: "token");
   }
- final formatter = new NumberFormat("#,###");
+
+  final formatter = new NumberFormat("#,###");
   @override
   void initState() {
     super.initState();
@@ -80,8 +82,12 @@ class _TicketPageState extends State<TicketPage> {
           centerTitle: true,
         ),
         bottomNavigationBar: InkWell(
-          onTap: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CheckoutScreen())),
+          onTap: () async {
+            BookingRepository rep = new BookingRepository();
+            await rep.complete(snapshot.data.data.sId);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PaymentSuccessScreen()));
+          },
           child: Container(
             height: 80,
             width: double.infinity,

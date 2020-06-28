@@ -22,7 +22,6 @@ class PaymentSuccessScreen extends StatelessWidget {
             FlatButton.icon(
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.pop(context);
                 },
                 icon: Icon(Icons.arrow_back_ios),
                 label: Text('Kiểm tra vé'))
