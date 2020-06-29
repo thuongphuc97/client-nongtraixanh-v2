@@ -5,9 +5,9 @@ import 'dart:convert';
 import 'dart:async';
 
 class ApiProvider {
-  final String _baseUrl = "https://tour-api-service.herokuapp.com/";
+  // final String _baseUrl = "https://tour-api-service.herokuapp.com/";
 // final String _baseUrl = "http://localhost:9090/";
-// final String _baseUrl ='http://172.16.2.107:9090/';
+  final String _baseUrl = 'http://192.168.43.188/api-server/';
 
   Future<dynamic> get(String url) async {
     var responseJson;
@@ -21,8 +21,8 @@ class ApiProvider {
     return responseJson;
   }
 
-  Future<dynamic> getWithHeader(
-      String url, {Map<String, String> headersData}) async {
+  Future<dynamic> getWithHeader(String url,
+      {Map<String, String> headersData}) async {
     var responseJson;
 
     try {
@@ -46,6 +46,7 @@ class ApiProvider {
     }
     return responseJson;
   }
+
   Future<dynamic> put(String url, Map<String, dynamic> body) async {
     var responseJson;
     try {
@@ -58,6 +59,7 @@ class ApiProvider {
     }
     return responseJson;
   }
+
   dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:

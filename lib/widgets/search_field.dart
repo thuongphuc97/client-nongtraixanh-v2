@@ -22,7 +22,7 @@ class SearchField extends StatelessWidget{
               )
           ),
           border:InputBorder.none,
-          hintText: "Search Tour"
+          hintText: "Tìm món ăn, rau củ ..."
         )
       ),
     );

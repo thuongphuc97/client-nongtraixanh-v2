@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_travel_ui/UI/screens/login_screen.dart';
-import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
 import 'package:flutter_travel_ui/blocs/validate.dart';
-import 'package:flutter_travel_ui/models/auth_model.dart';
 import 'package:flutter_travel_ui/repository/auth_repository.dart';
 import 'package:flutter_travel_ui/widgets/dialog.dart';
 

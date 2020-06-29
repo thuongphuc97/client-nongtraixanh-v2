@@ -1,12 +1,14 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/UI/pages/search_page.dart';
-import 'package:flutter_travel_ui/blocs/tour_bloc.dart';
-import 'package:flutter_travel_ui/models/tour_model.dart';
+import 'package:flutter_travel_ui/blocs/banner_bloc.dart';
+import 'package:flutter_travel_ui/blocs/product_bloc.dart';
+import 'package:flutter_travel_ui/models/banner_model.dart';
+import 'package:flutter_travel_ui/models/product_model.dart';
 import 'package:flutter_travel_ui/networking/response.dart';
+import 'package:flutter_travel_ui/widgets/home_product_list.dart';
 import 'package:flutter_travel_ui/widgets/response_widget.dart';
 import 'package:flutter_travel_ui/widgets/search_field.dart';
-import 'package:flutter_travel_ui/widgets/list_tour.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,29 +16,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TourBloc _bloc;
+  BannerBloc _bannerBloc;
+  ProductBloc _bloc;
+  String url = "http://192.168.43.188/client/public/images/";
   @override
   void initState() {
     super.initState();
-    _bloc = TourBloc();
-    _bloc.fetchTourList();
+    _bloc = ProductBloc();
+    _bloc.fetchProductList();
+
+    _bannerBloc = BannerBloc();
+    _bannerBloc.fetchProductList();
   }
 
+  List listImg = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: RefreshIndicator(
-        onRefresh: () => _bloc.fetchTourList(),
+        onRefresh: () => _bloc.fetchProductList(),
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 30.0),
           children: <Widget>[
             _findWidget(),
             Padding(
-                padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                child: _carousel()),
+              padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+              child: StreamBuilder<Response<List<Slide>>>(
+                stream: _bannerBloc.bannerListStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    switch (snapshot.data.status) {
+                      case Status.LOADING:
+                        print('loading');
+                        return Loading(loadingMessage: snapshot.data.message);
+                        break;
+                      case Status.COMPLETED:
+                        snapshot.data.data.forEach((element) {
+                          listImg.add(NetworkImage(url + element.img));
+                        });
+                        return _carousel(listImg);
+
+                        break;
+                      case Status.ERROR:
+                        return Error(
+                          errorMessage: snapshot.data.message,
+                          onRetryPressed: () =>_bannerBloc.fetchProductList(),
+                        );
+                        break;
+                    }
+                  }
+                  return Container();
+                },
+              ),
+            ),
             SizedBox(height: 20.0),
-            StreamBuilder<Response<List<Tour>>>(
-              stream: _bloc.tourListStream,
+            StreamBuilder<Response<List<Product>>>(
+              stream: _bloc.productListStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   switch (snapshot.data.status) {
@@ -46,16 +81,13 @@ class _HomePageState extends State<HomePage> {
                       break;
                     case Status.COMPLETED:
                       print('completed');
-                      return ListTour(
-                        tours: snapshot.data.data,
-                        title: "TOP Tours",
-                      );
-                      
+                      return ProductList(products: snapshot.data.data);
+
                       break;
                     case Status.ERROR:
                       return Error(
                         errorMessage: snapshot.data.message,
-                        onRetryPressed: () => _bloc.fetchTourList(),
+                        onRetryPressed: () => _bloc.fetchProductList(),
                       );
                       break;
                   }
@@ -72,13 +104,15 @@ class _HomePageState extends State<HomePage> {
 
   _findWidget() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 20, right: 0),
+          padding: const EdgeInsets.all(10),
           child: Text(
-            'What would you like \nto find?',
+            'Hôm nay, \nbạn muốn ăn gì?',
             style: TextStyle(
-              fontSize: 30.0,
+              fontSize: 40,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -98,7 +132,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _carousel() {
+  _carousel(listImg) {
     return Container(
       height: 200,
       child: Carousel(
@@ -107,12 +141,7 @@ class _HomePageState extends State<HomePage> {
         dotSize: 5,
         dotPosition: DotPosition.bottomLeft,
         borderRadius: true,
-        images: [
-          NetworkImage(
-              'https://www.tsttourist.com/vnt_upload/tour/01_2020/e7.jpg'),
-          NetworkImage(
-              'https://media.vietravel.net/Images/news/kich-cau-du-lich-thai-lan(0).jpg'),
-        ],
+        images: listImg
       ),
     );
   }

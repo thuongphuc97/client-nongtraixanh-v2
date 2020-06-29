@@ -5,7 +5,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_travel_ui/UI/pages/home_page.dart';
 import 'package:flutter_travel_ui/UI/pages/notifications_page.dart';
 import 'package:flutter_travel_ui/UI/pages/profile_page.dart';
-import 'package:flutter_travel_ui/UI/pages/testpage.dart';
 import 'package:flutter_travel_ui/UI/pages/ticket_page.dart';
 import 'package:flutter_travel_ui/blocs/auth/auth_bloc.dart';
 import 'package:flutter_travel_ui/models/auth_model.dart';
@@ -27,7 +26,6 @@ class _MainScreenState extends State<MainScreen> {
   NotificationsPage notiPage;
   ProfilePage profilePage;
   TicketPage ticketPage;
-  GetChuckCategories getChuckCategories;
 
 /* ------------------------- GET TOKEN FROM STORAGE ------------------------- */
   getAuth() async {
@@ -49,7 +47,6 @@ class _MainScreenState extends State<MainScreen> {
     profilePage = new ProfilePage();
     notiPage = new NotificationsPage();
     ticketPage = new TicketPage();
-    getChuckCategories = new GetChuckCategories();
     pages = [homePage, ticketPage, notiPage, profilePage];
     currentPage = homePage;
   }
@@ -83,12 +80,12 @@ class _MainScreenState extends State<MainScreen> {
               )),
           BottomNavigationBarItem(
               icon: Icon(
-                Feather.briefcase,
+                Feather.shopping_cart,
                 size: iconSize,
               ),
-              title: Text('ticket'),
+              title: Text('cart'),
               activeIcon: Icon(
-                Icons.confirmation_number,
+                Icons.shopping_cart,
                 size: activateIconSize,
               )),
           // BottomNavigationBarItem(
