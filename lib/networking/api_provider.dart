@@ -7,7 +7,7 @@ import 'dart:async';
 class ApiProvider {
   // final String _baseUrl = "https://tour-api-service.herokuapp.com/";
 // final String _baseUrl = "http://localhost:9090/";
-  final String _baseUrl = 'http://192.168.43.188/api-server/';
+  final String _baseUrl = 'http://192.168.43.47/api-server/';
 
   Future<dynamic> get(String url) async {
     var responseJson;

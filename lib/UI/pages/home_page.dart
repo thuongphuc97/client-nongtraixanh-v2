@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   BannerBloc _bannerBloc;
   ProductBloc _bloc;
-  String url = "http://192.168.43.188/client/public/images/";
+  String url = "http://192.168.43.47/client/public/images/";
   @override
   void initState() {
     super.initState();

@@ -77,7 +77,7 @@ class ProductItem extends StatelessWidget {
                     height: 180.0,
                     width: 180.0,
                     image: NetworkImage(
-                        'http://192.168.43.188/client/public/images/' +
+                        'http://192.168.43.47/client/public/images/' +
                             product.img),
                     fit: BoxFit.cover,
                   ),

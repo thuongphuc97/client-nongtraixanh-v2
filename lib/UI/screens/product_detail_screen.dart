@@ -40,7 +40,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   var rating = 3.0;
 
-  String imgUrl = 'http://192.168.43.188/client/public/images/';
+  String imgUrl = 'http://192.168.43.47/client/public/images/';
   @override
   void initState() {
     super.initState();
